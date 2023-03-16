@@ -3,7 +3,7 @@ import { Container, Banner, FormContainer } from "./styles";
 import LoginForm from "../../components/LoginForm";
 import RegisterForm from "../../components/RegisterForm";
 
-const Login = () => {
+const LoginPage = () => {
 
   const [isLogin, setIsLogin] = useState(true);
 
@@ -17,4 +17,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

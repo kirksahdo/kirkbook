@@ -1,7 +1,8 @@
 import { ThemeProvider } from "styled-components";
 import { useState } from "react";
 import { lightTheme, darkTheme } from "./themes";
-import Login from "./pages/Login";
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "./routes";
 
 const App = () => {
   
@@ -13,7 +14,9 @@ const App = () => {
 
   return (
     <ThemeProvider theme = {{...theme, toggleTheme}} >
-      <Login />
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
     </ThemeProvider>
   )
 }
