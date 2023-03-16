@@ -38,6 +38,6 @@
     ]
   },
   "devDependencies": {
-    "git-commit-msg-linter": "^4.9.2"
+    "commitizen": "^4.3.0"
   }
 }
