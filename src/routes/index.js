@@ -1,10 +1,11 @@
 import React from 'react';
 import { Route, Routes, Navigate, Outlet } from 'react-router-dom';
+import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/LoginPage';
 
 
 const PrivateRoute = () => {
-    const auth = null;
+    const auth = true;
     return auth ? <Outlet /> : <Navigate to="/login" />;
 }
 const AppRoutes = () => {
@@ -12,7 +13,7 @@ const AppRoutes = () => {
     <Routes>
       <Route path='/login' element={ <LoginPage /> } />
       <Route exact path='/' element={<PrivateRoute />}>
-        <Route path='/' element={<h1>Logado</h1>} />
+        <Route path='/' element={<HomePage />} />
       </Route>
     </Routes>
   );
