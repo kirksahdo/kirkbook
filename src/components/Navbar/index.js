@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom"
-import { Container, CustomLink, LogoContainer, MenuContainer } from "./styles"
+import { Container, LogoContainer, MenuContainer } from "./styles"
 import { FaFontAwesomeLogoFull, FaBars } from "react-icons/fa";
-import { Dropdown } from "react-bootstrap";
 
 const Navbar = () => {
   return (

@@ -38,6 +38,3 @@ export const MenuContainer = styled.div`
     }
   }
 `;
-export const CustomLink = styled(Link)`
-
-`;
