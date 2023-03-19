@@ -53,3 +53,7 @@ textarea:focus, input:focus, select:focus {
     border: 0 none;
     outline: 0;
 } 
+
+html, body {
+  height: 100%;
+}

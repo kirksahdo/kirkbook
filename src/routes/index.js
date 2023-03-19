@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes, Navigate, Outlet } from 'react-router-dom';
+import FeedPage from '../pages/FeedPage';
 import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/LoginPage';
 
@@ -13,7 +14,9 @@ const AppRoutes = () => {
     <Routes>
       <Route path='/login' element={ <LoginPage /> } />
       <Route exact path='/' element={<PrivateRoute />}>
-        <Route path='/' element={<HomePage />} />
+        <Route path='/' element={<HomePage />} >
+          <Route path='/' element={<FeedPage />} />
+        </Route>
       </Route>
     </Routes>
   );
