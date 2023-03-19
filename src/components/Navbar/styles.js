@@ -9,7 +9,18 @@ export const Container = styled.div`
   background-color: ${props => props.theme.primaryColor};
   box-shadow: 0px 1px 10px rgb(0, 0, 0, 0.5);
   z-index: 100;
-  position: relative;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  transition: transform 0.3s ease-in-out;
+  
+  &.navbar-scroll-up {
+    transform: translateY(-100%);
+  }
+  
+  &.navbar-scroll-up.show {
+    transform: translateY(0%);
+  }
 `;
 
 export const LogoContainer = styled.div`

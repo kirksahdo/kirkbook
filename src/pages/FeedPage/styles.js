@@ -9,4 +9,5 @@ export const Container = styled.div`
   align-items: center;
   padding: 20px 0;
   gap: 35px;
+  padding-top: 120px;
 `;
