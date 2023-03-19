@@ -1,11 +1,13 @@
 import Post from "../../components/Post";
-import { Container } from "./styles";
+import { Container, Posts } from "./styles";
 
 const FeedPage = () => {
   return (
     <Container>
-      <Post />
-      <Post />
+      <Posts>
+        <Post />
+        <Post />
+      </Posts>
     </Container>
   );
 };

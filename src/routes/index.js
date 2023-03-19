@@ -3,6 +3,7 @@ import { Route, Routes, Navigate, Outlet } from 'react-router-dom';
 import FeedPage from '../pages/FeedPage';
 import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/LoginPage';
+import ProfilePage from '../pages/ProfilePage';
 
 
 const PrivateRoute = () => {
@@ -16,6 +17,7 @@ const AppRoutes = () => {
       <Route exact path='/' element={<PrivateRoute />}>
         <Route path='/' element={<HomePage />} >
           <Route path='/' element={<FeedPage />} />
+          <Route path='user/:id' element={<ProfilePage />} />
         </Route>
       </Route>
     </Routes>

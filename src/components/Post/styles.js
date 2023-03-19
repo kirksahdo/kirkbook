@@ -3,7 +3,7 @@ import { FaThumbsUp, FaComment, FaShare, FaEllipsisV } from "react-icons/fa";
 import { IoMdSend } from "react-icons/io";
 
 export const Container = styled.div`
-  width: 600px;
+  width: 100%;
   background-color: ${props => props.theme.secondaryBackgroundColor};
   padding: 20px;
   border-radius: 20px;
@@ -142,7 +142,7 @@ export const Comment = styled.p`
 
 export const UsernameComment = styled.a`
   font-weight: bold;
-  color: ${props => props.theme.primaryColor};
+  color: ${props => props.theme.textColor};
   &:hover {
     color: ${props => props.theme.secondaryColor};
   }
@@ -172,7 +172,14 @@ export const CommentInput = styled.input`
 export const CommentProfilePhoto = styled.img`
   width: 30px;
   height: 30px;
-  border-radius: 10px;
+  border-radius: 15px;
+`;
+
+
+export const PostProfilePhoto = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
 `;
 
 

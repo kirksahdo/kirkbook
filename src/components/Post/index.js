@@ -1,6 +1,7 @@
-import { Buttons, ButtonText, Container, Content, Footer, Header, MainText, PostImage, PostText, SubText, UserData, UserProfilePhoto, Button, LikeIcon, ComentIcon, PostComments, Comment, UsernameComment, CommentArea, CommentProfilePhoto, CommentInput, ShareIcon, SendIcon, DotIcon, LikesLabel } from "./styles";
+import { Buttons, ButtonText, Container, Content, Footer, Header, MainText, PostImage, PostText, SubText, UserData, UserProfilePhoto, Button, LikeIcon, ComentIcon, PostComments, Comment, UsernameComment, CommentArea, CommentProfilePhoto, CommentInput, ShareIcon, SendIcon, DotIcon, LikesLabel, PostProfilePhoto } from "./styles";
 import { FaUser } from "react-icons/fa";
 import image_test from "./../../assets/asset_test.jpg";
+import defaultProfile from "../../assets/user.jpeg";
 
 
 const Post = () => {
@@ -8,7 +9,7 @@ const Post = () => {
     <Container >
       <Header>
         <UserProfilePhoto>
-          <FaUser size={40}/>
+          <PostProfilePhoto src={defaultProfile} />
         </UserProfilePhoto>
         <UserData>
           <MainText href="#" >Kirk Sahdo</MainText>
@@ -41,7 +42,7 @@ const Post = () => {
           <Comment><UsernameComment href="#">Kirk Sahdo:</UsernameComment> Morbi vehicula magna lacus, non aliquet neque scelerisque quis. Etiam commodo eget lectus vel gravida. Maecenas mauris odio, fermentum volutpat.</Comment>
         </PostComments>
         <CommentArea>
-          <FaUser size={20}/>
+          <CommentProfilePhoto src={defaultProfile} />
           <CommentInput type="text" placeholder="Deixe seu comentário"/>
           <Button>
             <SendIcon />
