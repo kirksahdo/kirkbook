@@ -3,6 +3,8 @@ import InputLogin from "../InputLogin";
 import { useState } from "react";
 import Usuario from "../../models/Usuario";
 import { realizarCadastro as rCadastro } from "../../controllers/UserController";
+import { useToast } from "../../contexts/ToastContext";
+import LoadingScreen from "../LoadingScreen";
 
 const RegisterForm = ({onBack, onClickForgetPassword}) => {
 
@@ -14,20 +16,52 @@ const RegisterForm = ({onBack, onClickForgetPassword}) => {
   const [senha, setSenha] = useState("");
   const [cSenha, setCSenha] = useState("");
   const [sexo, setSexo] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const {addToast} = useToast();
 
   const realizarCadastro = async() => {
-    const usuario = new Usuario(email, nome, dataNasc, cidade, estado, sexo);
-    console.log(usuario);
-    try{
-      const user = await rCadastro(usuario, senha);
-      console.log("Usuário cadastrado com sucesso!" + user);
-    } catch(error) {
-      console.log(error);
+    if(!validarFormulario()) {
+      return addToast("Erro, verifique se os campos estão certos!", "#FF0000", "#fff");
     }
+    const usuario = new Usuario(email, nome, dataNasc, cidade, estado, sexo);
+    setIsLoading(true);
+    try{
+      await rCadastro(usuario, senha);
+      addToast("Você se cadastrou com sucesso!", "#008800", "#fff");
+      limparCampos();
+    } catch(error) {
+      addToast("Erro! " + error, "#FF0000", "#fff");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  const validarFormulario = () => {
+    if (nome === "" || email === "" || dataNasc === "" || cidade === "" || estado === "" || senha === "" || cSenha === "") {
+      return false;
+    }
+    if (senha !== cSenha) {
+      return false;
+    }
+    return true;
+  }
+
+
+  const limparCampos = () => {
+    setNome("");
+    setEmail("");
+    setDataNasc("");
+    setCidade("");
+    setEstado("");
+    setSenha("");
+    setCSenha("");
+    setSexo("");
   }
 
   return (
     <Container>
+      {isLoading && <LoadingScreen />}
       <ArrowBack size={40} onClick={onBack}/>
       <TitleForm> Cadastro </TitleForm>
       <InputLogin type="Nome" value={nome} onChangeText={({target}) => setNome(target.value)}/>
