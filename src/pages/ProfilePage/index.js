@@ -32,7 +32,7 @@ const ProfilePage = () => {
               <SubText>Vivamus metus dolor, bibendum at convallis a, placerat at ipsum. In hac habitasse platea dictumst. Donec pulvinar at nulla at molestie. Proin consectetur vitae eros nec eleifend. Sed blandit quis tellus sit amet volutpat. Maecenas volutpat convallis tincidunt. Etiam vestibulum pretium urna, dictum porta lorem pellentesque sit amet. Proin non sem varius libero dapibus tincidunt.</SubText>
             </UserBio>
             <UserBio>
-              <MainText>Amigos</MainText>
+              <MainText>Amigos - 7</MainText>
               <a href="/" ><UserFriendPhoto src={defaultProfile} /></a>
               <a href="/" ><UserFriendPhoto src={defaultProfile} /></a>
               <a href="/" ><UserFriendPhoto src={defaultProfile} /></a>

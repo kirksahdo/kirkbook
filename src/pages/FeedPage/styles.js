@@ -16,3 +16,17 @@ export const Posts = styled.div`
   width: 600px;
   margin: 0 auto;
 `;
+
+export const Button = styled.button`
+  background-color: ${props => props.theme.primaryColor};
+  color: white;
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  &:hover {
+    background-color: ${props => props.theme.secondaryColor};
+  }
+`;

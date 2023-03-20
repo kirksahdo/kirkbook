@@ -23,16 +23,15 @@ const InputLogin = ({type, value, onChangeText, password = false}) => {
       case "Confirme sua senha":
         return <FaCheckCircle color="#fff" size={size}/>;
       default:
-        return FaUserAlt;
+        return <FaUserAlt color="#fff" size={size} />;
     }
   }
 
   const getInputType = () => {
     if (password){
       return <Input placeholder={type} value={value} onChange={onChangeText} type="password"/>
-    } else {
-      return <Input placeholder={type} value={value} onChange={onChangeText}/>
     }
+    return <Input placeholder={type} value={value} onChange={onChangeText}/>
   }
 
   return (

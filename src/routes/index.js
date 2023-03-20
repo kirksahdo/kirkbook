@@ -4,11 +4,12 @@ import FeedPage from '../pages/FeedPage';
 import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/LoginPage';
 import ProfilePage from '../pages/ProfilePage';
+import { auth } from '../config/firebase';
 
 
 const PrivateRoute = () => {
-    const auth = true;
-    return auth ? <Outlet /> : <Navigate to="/login" />;
+    const user = auth.currentUser;
+    return user ? <Outlet /> : <Navigate to="/login" />;
 }
 const AppRoutes = () => {
   return (

@@ -48,10 +48,21 @@ export const MenuContainer = styled.div`
     li {
       padding: 0 20px;
       height: 100%;
+      position: relative;
     }
     li:hover {
       background-color: ${props => props.theme.secondaryColor};
       cursor: pointer;
     }
   }
+`;
+
+export const BarsDropdown = styled.div`
+  width: 300px;
+  height: 300px;
+  background-color: white;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: none;
 `;

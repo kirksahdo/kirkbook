@@ -3,6 +3,7 @@ import { useState } from "react";
 import { lightTheme, darkTheme } from "./themes";
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./routes";
+import { ToastProvider } from "./contexts/ToastContext";
 
 const App = () => {
   
@@ -14,9 +15,12 @@ const App = () => {
 
   return (
     <ThemeProvider theme = {{...theme, toggleTheme}} >
-      <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter>
+      <ToastProvider>
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
+      </ToastProvider>
+      
     </ThemeProvider>
   )
 }
