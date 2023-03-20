@@ -38,10 +38,16 @@ const RegisterForm = ({onBack, onClickForgetPassword}) => {
   }
 
   const validarFormulario = () => {
+
     if (nome === "" || email === "" || dataNasc === "" || cidade === "" || estado === "" || senha === "" || cSenha === "") {
       return false;
     }
     if (senha !== cSenha) {
+      return false;
+    }
+    const regexDataNascimento = /^(0[1-9]|[1-2]\d|3[0-1])\/(0[1-9]|1[0-2])\/\d{4}$/;
+    if (!regexDataNascimento.test(dataNasc)) {
+      addToast("Data de nascimento inválida!", "#FF0000", "#fff");
       return false;
     }
     return true;
