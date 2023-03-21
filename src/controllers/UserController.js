@@ -11,8 +11,6 @@ export const fazerLogin = (email, senha) => {
         resolve(user);
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
         reject(error);
       });
   });

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Banner, FormContainer } from "./styles";
 import LoginForm from "../../components/LoginForm";
 import RegisterForm from "../../components/RegisterForm";
+import { auth } from "../../config/firebase";
 
 const LoginPage = () => {
 

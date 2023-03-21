@@ -1,16 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes, Navigate, Outlet } from 'react-router-dom';
 import FeedPage from '../pages/FeedPage';
 import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/LoginPage';
 import ProfilePage from '../pages/ProfilePage';
 import { auth } from '../config/firebase';
-
+import LoadingScreen from '../components/LoadingScreen';
 
 const PrivateRoute = () => {
-    const user = auth.currentUser;
-    return user ? <Outlet /> : <Navigate to="/login" />;
-}
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      setUser(user);
+      setLoading(false);
+    });
+
+    return unsubscribe;
+  }, []);
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
+
+  return user ? <Outlet /> : <Navigate to="/login" />;
+};
+
 const AppRoutes = () => {
   return (
     <Routes>

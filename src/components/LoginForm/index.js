@@ -13,7 +13,6 @@ const LoginForm = ({onClickRegister, onClickForgetPassword}) => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   
-
   const {addToast, removeToast } = useToast();
 
   const fazerLogin = async (email, senha) => {
@@ -21,11 +20,11 @@ const LoginForm = ({onClickRegister, onClickForgetPassword}) => {
     try{
       await fLogin(email, senha);
       addToast("Login bem sucedido!", "#008000", "#fff");
+      setIsLoading(false);
       navigate("/");
     } catch(error) {
-      addToast("Credenciais inválidas!", "#FF0000", "#fff");
-    } finally {
       setIsLoading(false);
+      addToast("Credenciais inválidas!", "#FF0000", "#fff");
     }
   }
 
