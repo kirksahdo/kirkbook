@@ -4,10 +4,11 @@ import { lightTheme, darkTheme } from "./themes";
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./routes";
 import { ToastProvider } from "./contexts/ToastContext";
+import { GlobalStyle } from "./styles";
 
 const App = () => {
   
-  const [theme, setTheme] = useState(darkTheme);
+  const [theme, setTheme] = useState(lightTheme);
 
   const toggleTheme = () => {
     setTheme(theme === lightTheme ? darkTheme : lightTheme);
@@ -15,6 +16,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme = {{...theme, toggleTheme}} >
+      <GlobalStyle />
       <ToastProvider>
         <BrowserRouter>
           <AppRoutes />

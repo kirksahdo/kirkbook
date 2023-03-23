@@ -9,11 +9,10 @@ export const criarPublicacao = (conteudo, imagem) => {
     const publiRef = push(ref(database, "publicacoes/"));
     const publiId = publiRef.key;
     const storageRef = refStorage(storage, `publicacoes/${publiId}`);
-    console.log(imagem);
-    uploadBytes(storageRef, imagem)
+    if(imagem) {
+      uploadBytes(storageRef, imagem)
       .then((snapshot) => {
         getDownloadURL(snapshot.ref).then(url => {
-          console.log(url);
           set(ref(database, `publicacoes/${publiId}/`), {
             id: publiId,
             userId: userId,
@@ -32,6 +31,21 @@ export const criarPublicacao = (conteudo, imagem) => {
       .catch((error) => {
         reject(error)
       });
+    } else {
+      set(ref(database, `publicacoes/${publiId}/`), {
+        id: publiId,
+        userId: userId,
+        timestamp: serverTimestamp(),
+        conteudo: conteudo,
+        curtidas: {},
+        comentarios: {}
+      }).then(_ => {
+        resolve("");
+      }).catch(error => {
+        reject(error);
+      })
+    }
+    
   });
 }
 

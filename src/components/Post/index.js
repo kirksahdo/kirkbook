@@ -1,6 +1,4 @@
 import { Buttons, ButtonText, Container, Content, Footer, Header, MainText, PostImage, PostText, SubText, UserData, UserProfilePhoto, Button, LikeIcon, ComentIcon, PostComments, Comment, UsernameComment, CommentArea, CommentProfilePhoto, CommentInput, ShareIcon, SendIcon, DotIcon, LikesLabel, PostProfilePhoto } from "./styles";
-import { FaUser } from "react-icons/fa";
-import image_test from "./../../assets/asset_test.jpg";
 import defaultProfile from "../../assets/user.jpeg";
 import { useEffect, useState } from "react";
 import { getUsuario } from "../../controllers/UserController";
@@ -9,7 +7,6 @@ import { addComentario, addCurtida, removerCurtida } from "../../controllers/Pub
 import { auth } from "../../config/firebase";
 import { useToast } from "../../contexts/ToastContext";
 import LoadingScreen from "../LoadingScreen";
-
 
 const Post = ({publicacao}) => {
   
@@ -68,6 +65,7 @@ const Post = ({publicacao}) => {
   }
 
   const comentarPublicacao = () => {
+    if(comentario.trim() === "") return;
     setIsLoading(true);
     addComentario(publi.id, auth.currentUser.uid, comentario)
       .then(post => {

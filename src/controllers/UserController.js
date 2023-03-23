@@ -65,4 +65,24 @@ export const getPerfil = (id) => {
       reject(error);
     }
   });
-};
+}
+
+export const getAllUsuarios = () => {
+  return new Promise(async(resolve, reject) => {
+    try{
+      const dbRef = ref(database);
+      const snapshot = await get(child(dbRef, "usuarios/"));
+      if (snapshot.exists()){
+        const usuarios = Object.values(snapshot.val());
+        for(const u of usuarios){
+          u.amigos = u.amigos ? Object.values(u.amigos) : [];
+        }
+        resolve(usuarios);
+      }else {
+        throw Error("Erro ao carregar usuários");
+      }
+    } catch(error) {
+      reject(error);
+    }
+  });
+}

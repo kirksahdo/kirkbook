@@ -6,6 +6,7 @@ import LoginPage from '../pages/LoginPage';
 import ProfilePage from '../pages/ProfilePage';
 import { auth } from '../config/firebase';
 import LoadingScreen from '../components/LoadingScreen';
+import SearchUserPage from '../pages/SearchUserPage';
 
 const PrivateRoute = () => {
   const [loading, setLoading] = useState(true);
@@ -35,6 +36,7 @@ const AppRoutes = () => {
         <Route path='/' element={<HomePage />} >
           <Route path='/' element={<FeedPage />} />
           <Route path='user/:id' element={<ProfilePage />} />
+          <Route path='procurar' element={<SearchUserPage />} />
         </Route>
       </Route>
     </Routes>

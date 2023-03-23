@@ -1,4 +1,17 @@
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
+
+export const GlobalStyle = createGlobalStyle`
+  html, body {
+    margin: 0;
+    padding: 0;
+    background-color: ${props => props.theme.colors.primary};
+    height: 100%;
+  }
+
+  #root {
+    height: 100%;
+  }
+`;
 
 export const Container = styled.div`
   width: 100vw;
