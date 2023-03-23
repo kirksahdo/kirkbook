@@ -1,6 +1,7 @@
 import { auth, database } from "../config/firebase";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, ref, set, get, child } from "firebase/database"
+import { getPublicacoesUsuario } from "./PublicacaoController";
 
 export const fazerLogin = (email, senha) => {
   return new Promise((resolve, reject) => {
@@ -51,14 +52,17 @@ export const getUsuario = (id) => {
 }; 
 
 export const getPerfil = (id) => {
-  return new Promise((resolve, reject) => {
-    getUsuario(id).then(usuario => {
-      resolve({
+  return new Promise(async (resolve, reject) => {
+    try {
+      const usuario = await getUsuario(id);
+      const publicacoes = await getPublicacoesUsuario(id);
+      const resultado = {
         usuario: usuario,
-        publicacoes: []
-      });
-    }).catch(error => {
+        publicacoes: publicacoes
+      };
+      resolve(resultado);
+    } catch (error) {
       reject(error);
-    })
+    }
   });
 };
