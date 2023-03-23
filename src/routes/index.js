@@ -7,6 +7,7 @@ import ProfilePage from '../pages/ProfilePage';
 import { auth } from '../config/firebase';
 import LoadingScreen from '../components/LoadingScreen';
 import SearchUserPage from '../pages/SearchUserPage';
+import Error404Page from '../pages/Error404Page';
 
 const PrivateRoute = () => {
   const [loading, setLoading] = useState(true);
@@ -39,6 +40,7 @@ const AppRoutes = () => {
           <Route path='procurar' element={<SearchUserPage />} />
         </Route>
       </Route>
+      <Route path="*" element={<Error404Page />} />
     </Routes>
   );
 };
