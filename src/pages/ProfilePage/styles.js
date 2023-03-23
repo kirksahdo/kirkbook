@@ -65,7 +65,7 @@ export const UserName = styled.h1`
 `;
 
 export const UserFriendsNumber = styled.h2`
-  font-size: 1.4rem;
+  font-size: 0.95rem;
   color: ${props => props.theme.textColor};
 `;
 

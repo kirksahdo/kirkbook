@@ -4,7 +4,7 @@ import image_test from "./../../assets/asset_test.jpg";
 import defaultProfile from "../../assets/user.jpeg";
 
 
-const Post = () => {
+const Post = (publicacao) => {
   return (
     <Container >
       <Header>

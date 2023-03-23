@@ -29,5 +29,5 @@ export const criarPublicacao = (conteudo, imagem) => {
       .catch((error) => {
         reject(error)
       });
-  })
+  });
 }
