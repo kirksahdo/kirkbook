@@ -2,6 +2,7 @@ import { auth, database } from "../config/firebase";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, ref, set, get, child } from "firebase/database"
 import { getPublicacoesUsuario } from "./PublicacaoController";
+import { getAmigos } from "./AmigosController";
 
 export const fazerLogin = (email, senha) => {
   return new Promise((resolve, reject) => {
@@ -58,9 +59,11 @@ export const getPerfil = (id) => {
     try {
       const usuario = await getUsuario(id);
       const publicacoes = await getPublicacoesUsuario(id);
+      const amigos = await getAmigos(id);
       const resultado = {
         usuario: usuario,
-        publicacoes: publicacoes
+        publicacoes: publicacoes,
+        amigos: amigos
       };
       resolve(resultado);
     } catch (error) {

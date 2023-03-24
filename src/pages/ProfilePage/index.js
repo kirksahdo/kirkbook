@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, ButtonAdd, ButtonText, Container, MainText, SubText, User, UserBio, UserBioFriends, UserData, UserFriendPhoto, UserFriendsNumber, UserImageCape, UserImageProfile, UserName, UserProfile, UserPubInfo, UserPubs, UserSpecs } from "./styles";
+import { Button, ButtonAdd, ButtonRemove, ButtonText, Container, MainText, SubText, User, UserBio, UserBioFriends, UserData, UserFriendPhoto, UserFriendsNumber, UserImageCape, UserImageProfile, UserName, UserProfile, UserPubInfo, UserPubs, UserSpecs } from "./styles";
 import defaultCape from "../../assets/asset_test.jpg";
 import defaultProfile from "../../assets/user.jpeg";
 import Post from "../../components/Post";
@@ -36,6 +36,27 @@ const ProfilePage = () => {
       })
   }
 
+  const getAddButton = () => {
+    const currentUserId = auth.currentUser.uid;
+    if (perfil.usuario.id === currentUserId) {
+      return;
+    }
+    if (perfil.amigos.map(a => a.id).includes(currentUserId)) {
+      return (
+        <Button onClick={() => {}}>
+          <ButtonRemove size={25}/>
+          <ButtonText>Desfazer amizade</ButtonText>
+        </Button>
+      );
+    }
+    return (
+      <Button onClick={() => enviarSolicitacao(perfil.usuario.id)}>
+        <ButtonAdd size={25}/>
+        <ButtonText>Adicionar</ButtonText>
+      </Button>
+    );  
+  }
+
   return(
     <>
       {loading && <LoadingScreen />}
@@ -50,11 +71,8 @@ const ProfilePage = () => {
                 <UserFriendsNumber>18 amigos</UserFriendsNumber>
                 <UserFriendsNumber> {perfil.usuario.cidade} - {perfil.usuario.estado} </UserFriendsNumber>
               </UserData>
-              {!(perfil.usuario.id === auth.currentUser.uid) &&
-                <Button onClick={() => enviarSolicitacao(perfil.usuario.id)}>
-                  <ButtonAdd size={25}/>
-                  <ButtonText>Adicionar</ButtonText>
-                </Button>
+              {
+                getAddButton()
               }
             </UserSpecs>
           </User>
@@ -65,14 +83,14 @@ const ProfilePage = () => {
                 <SubText>{perfil.usuario.biografia.trim() !== "" ? perfil.usuario.biografia : "Sem nada no momento."}</SubText>
               </UserBio>
               <UserBio>
-                <MainText>Amigos - 7</MainText>
-                <a href="/" ><UserFriendPhoto src={defaultProfile} /></a>
-                <a href="/" ><UserFriendPhoto src={defaultProfile} /></a>
-                <a href="/" ><UserFriendPhoto src={defaultProfile} /></a>
-                <a href="/" ><UserFriendPhoto src={defaultProfile} /></a>
-                <a href="/" ><UserFriendPhoto src={defaultProfile} /></a>
-                <a href="/" ><UserFriendPhoto src={defaultProfile} /></a>
-                <a href="/" ><UserFriendPhoto src={defaultProfile} /></a>
+                <MainText>Amigos - {perfil.amigos.length}</MainText>
+                {perfil.amigos.length > 0 ? (
+                  perfil.amigos.map(a => (
+                    <a href={`/user/${a.id}` }><UserFriendPhoto src={a.urlFotoPerfil || defaultProfile} /></a>
+                  ))
+                ) : (
+                  <SubText>{"Sem amigos no momento. =("}</SubText>
+                )}
               </UserBio>
             </UserBioFriends>
             <UserPubs>

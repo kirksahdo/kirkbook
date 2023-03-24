@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IoMdPersonAdd } from "react-icons/io";
+import { IoMdPersonAdd, IoMdRemove} from "react-icons/io";
 
 export const Container = styled.div`
   width: 100%;
@@ -70,6 +70,10 @@ export const UserFriendsNumber = styled.h2`
 `;
 
 export const ButtonAdd = styled(IoMdPersonAdd)`
+  color: #fff;
+`;
+
+export const ButtonRemove = styled(IoMdRemove)`
   color: #fff;
 `;
 

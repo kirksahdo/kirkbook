@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
   height: 100px;
@@ -38,21 +39,20 @@ export const MenuContainer = styled.div`
     justify-content: flex-end;
     align-items: center;
     width: 100%;
-    * {
-      color: #fff;
-      text-decoration: none;
-      height: 100%;
-      display: flex;
-      align-items: center;
-    }
-    li {
-      padding: 0 20px;
-      height: 100%;
-      position: relative;
-    }
     li:hover {
       background-color: ${props => props.theme.secondaryColor};
       cursor: pointer;
+    }
+    li {
+      height: 100%;
+    }
+    li a{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
     }
   }
 `;

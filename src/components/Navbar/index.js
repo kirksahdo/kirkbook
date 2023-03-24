@@ -26,17 +26,22 @@ const Navbar = () => {
       </LogoContainer>
       <MenuContainer>
         <ul>
-          <li><Link to={"/"}><FaHome size={20} color="#fff" /></Link></li>
-          <li><Link to={"/procurar"}><FaSearch size={15} color="#fff" /></Link></li>
+          <li><Link to={"/"}><FaHome size={25} color="#fff" /></Link></li>
+          <li><Link to={"/procurar"}><FaSearch size={25} color="#fff" /></Link></li>
           <li>
-            <IoMdNotifications size={20} color="#fff"/>
+            <Link to={"/solicitacoes"}>
+              <IoMdNotifications size={25} color="#fff"/>
+            </Link>
           </li>
           <li>
-            <AiFillMessage size={20} color="#fff"/>
-            
+            <Link to={"#"}>
+              <AiFillMessage size={25} color="#fff"/>
+            </Link>
           </li>
           <li>
-            <FaBars size={20} color="#fff"  />
+            <Link to={"#"}>  
+              <FaBars size={25} color="#fff"  />
+            </Link>   
           </li>
         </ul>
         
