@@ -21,14 +21,14 @@ const FeedPage = () => {
       addToast("Erro ao criar publicação", "#FF0000", "#fff");
     } finally {
       setCriarPublic(false);
-      setIsLoading(false);
+      visualizarFeed();
     }
   }
 
   const visualizarFeed = () => {
     setIsLoading(true);
     getPublicacoes().then(snapshot => {
-      setPublicacoes(snapshot);
+      setPublicacoes(snapshot.sort((a, b) => b.timestamp - a.timestamp));
       setIsLoading(false);
     })
     .catch(error => {

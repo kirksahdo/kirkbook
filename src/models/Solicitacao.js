@@ -1,5 +1,6 @@
 export default class Solicitacao {
-  constructor(timestamp) {
+  constructor(timestamp, userId) {
     this.timestamp = timestamp;
+    this.userId = userId;
   }
 }

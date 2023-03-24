@@ -16,7 +16,7 @@ const Post = ({publicacao}) => {
   const { addToast } = useToast();
   const [ userLogged, setUserLogged ] = useState(null);
   const [ publi, setPubli ] = useState(publicacao);
-  const [comentario, setComentario] = useState("");
+  const [ comentario, setComentario] = useState("");
   
 
   useEffect(() => {
@@ -73,7 +73,10 @@ const Post = ({publicacao}) => {
         setPubli(post);
       })
       .catch(error => addToast(error.message, "#FF0000", "#fff"))
-      .finally(_ => setIsLoading(false))
+      .finally(_ => {
+        setComentario("");
+        setIsLoading(false);
+      });
   }
 
   return (
