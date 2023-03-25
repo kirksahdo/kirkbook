@@ -34,7 +34,7 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link to={"#"}>
+            <Link to={"/conversas"}>
               <AiFillMessage size={25} color="#fff"/>
             </Link>
           </li>
