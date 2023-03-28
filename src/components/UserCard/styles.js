@@ -40,3 +40,28 @@ export const SubText = styled.h2`
   font-size: 0.9em;
   color: ${(props) => props.theme.textColor};
 `;
+
+export const Button = styled.button`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) => props.theme.primaryColor};
+  border: none;
+  gap: 10px;
+  padding: 0.375rem 0.75rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  &:hover {
+    background-color: ${(props) => props.theme.secondaryColor};
+  }
+  &:focus {
+    outline: none;
+
+  }
+`;
+
+export const ButtonText = styled.h4`
+  font-size: 0.9em;
+  color: #fff;
+`;

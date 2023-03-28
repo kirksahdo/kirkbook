@@ -44,7 +44,7 @@ import LoadingScreen from '../LoadingScreen';
 import EditPostPopup from '../EditPostPopup';
 import Popup from '../Popup';
 
-const Post = ({ publicacao }) => {
+const Post = ({ publicacao, admin }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showInput, setShowInput] = useState(false);
@@ -174,16 +174,16 @@ const Post = ({ publicacao }) => {
           <PostProfilePhoto src={usuario.urlFotoPerfil ?? defaultProfile} />
         </UserProfilePhoto>
         <UserData>
-          <MainText href={`user/${usuario.id}`}>{usuario.nome}</MainText>
+          <MainText href={`user/${usuario.id}`}>{usuario.administrador && (<span>[Admin] </span>)}{usuario.nome}</MainText>
           <SubText href="#">
             {' '}
             {moment(publi.timestamp).format('DD/MM/YYYY [às] HH:mm')}
           </SubText>
         </UserData>
-        {auth.currentUser.uid === usuario.id && (
+        {(auth.currentUser.uid === usuario.id || userLogged.administrador) && (
           <EditIcon size={25} onClick={() => setEditPopup(true)} />
         )}
-        {auth.currentUser.uid === usuario.id && (
+        {(auth.currentUser.uid === usuario.id || userLogged.administrador) && (
           <DeleteIcon size={25} onClick={() => setDeletePopup(true)} />
         )}
       </Header>

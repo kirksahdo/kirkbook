@@ -124,7 +124,7 @@ const ProfilePage = () => {
                   }
                 />
                 <UserData>
-                  <UserName>{perfil.usuario.nome}</UserName>
+                  <UserName>{perfil.usuario.administrador && (<span>[Admin] </span>)}{perfil.usuario.nome}</UserName>
                   <UserFriendsNumber>
                     {' '}
                     {perfil.usuario.cidade} - {perfil.usuario.estado}{' '}

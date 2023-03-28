@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { IoMdPersonAdd, IoMdRemove } from 'react-icons/io';
 
 export const Container = styled.div`
@@ -57,11 +57,30 @@ export const UserData = styled.div`
   justify-content: center;
 `;
 
+const shine = keyframes`
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+`;
+
 export const UserName = styled.h1`
   font-size: 1.8rem;
   text-transform: capitalize;
   color: ${(props) => props.theme.textColor};
   font-weight: bold;
+  span {
+    animation: ${shine} 2s infinite;
+    color: #ff0000;
+    font-weight: bolder;
+    font-size: 1.4rem;
+  }
+  
 `;
 
 export const UserFriendsNumber = styled.h2`

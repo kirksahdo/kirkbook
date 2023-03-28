@@ -4,7 +4,6 @@ import {
   Overlay,
   Content,
   CloseButton,
-  Input,
   ImageInput,
   ImagePreview,
   Button,
@@ -12,7 +11,6 @@ import {
   HeaderTitle,
 } from './styles';
 import { useToast } from '../../contexts/ToastContext';
-import InputLogin from '../InputLogin';
 import InputData from '../InputData';
 import { editarPerfil, getUsuario } from '../../controllers/UserController';
 import LoadingScreen from '../LoadingScreen';
@@ -234,7 +232,6 @@ const EditarPerfil = ({ id, isOpen, onClose }) => {
 EditarPerfil.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
 };
 
 export default EditarPerfil;

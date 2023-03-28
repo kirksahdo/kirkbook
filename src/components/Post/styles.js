@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import {
   FaThumbsUp,
   FaComment,
@@ -118,6 +118,18 @@ export const UserData = styled.div`
   gap: 4px;
 `;
 
+const shine = keyframes`
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+`;
+
 export const MainText = styled.a`
   margin-right: 50px;
   font-size: 1.2em;
@@ -125,6 +137,13 @@ export const MainText = styled.a`
   font-weight: bold;
   &:hover {
     color: ${(props) => props.theme.textColor};
+    text-decoration: none;
+  }
+  span {
+    animation: ${shine} 2s infinite;
+    color: #ff0000;
+    font-weight: bolder;
+    font-size: 1rem;
   }
 `;
 
@@ -134,6 +153,7 @@ export const SubText = styled.a`
   color: ${(props) => props.theme.textColor};
   &:hover {
     color: ${(props) => props.theme.textColor};
+    text-decoration: none;
   }
 `;
 
