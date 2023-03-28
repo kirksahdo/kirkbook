@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom"
 import { Container, LogoContainer, MenuContainer } from "./styles"
-import { FaFontAwesomeLogoFull, FaBars, FaHome, FaSearch } from "react-icons/fa";
+import { FaFontAwesomeLogoFull, FaHome, FaSearch, FaSignOutAlt } from "react-icons/fa";
 import { IoMdNotifications } from "react-icons/io";
 import { AiFillMessage } from "react-icons/ai";
+import { BsFillPersonFill } from "react-icons/bs";
 import { useState } from "react";
+import { auth } from "../../config/firebase";
 
 const Navbar = () => {
   const [scrollUp, setScrollUp] = useState(true);
@@ -26,21 +28,26 @@ const Navbar = () => {
       </LogoContainer>
       <MenuContainer>
         <ul>
-          <li><Link to={"/"}><FaHome size={25} color="#fff" /></Link></li>
-          <li><Link to={"/procurar"}><FaSearch size={25} color="#fff" /></Link></li>
+          <li><Link title="Início" to={"/"}><FaHome size={25} color="#fff" /></Link></li>
+          <li><Link title="Procurar" to={"/procurar"}><FaSearch size={20} color="#fff" /></Link></li>
           <li>
-            <Link to={"/solicitacoes"}>
+            <Link title="Solicitações de Amizade" to={"/solicitacoes"}>
               <IoMdNotifications size={25} color="#fff"/>
             </Link>
           </li>
           <li>
-            <Link to={"/conversas"}>
+            <Link title="Conversa" to={"/conversas"}>
               <AiFillMessage size={25} color="#fff"/>
             </Link>
           </li>
           <li>
-            <Link to={"#"}>  
-              <FaBars size={25} color="#fff"  />
+            <Link title="Perfil" to={`/user/${auth.currentUser.uid}`}>  
+              <BsFillPersonFill size={25} color="#fff"  />
+            </Link>   
+          </li>
+          <li>
+            <Link title="Sair" onClick={() => auth.signOut()}>  
+              <FaSignOutAlt size={25} color="#fff"/>
             </Link>   
           </li>
         </ul>

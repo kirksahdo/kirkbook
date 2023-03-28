@@ -24,6 +24,7 @@ export const Input = styled.input`
   flex: 1;
   font-size: 1rem;
   color: ${props => props.theme.textColor};
+  background-color: ${props => props.theme.secondaryBackgroundColor};
   outline: none;
   &:focus {
     outline: none;

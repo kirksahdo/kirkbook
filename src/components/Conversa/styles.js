@@ -63,7 +63,7 @@ export const MessageContainer = styled.div`
   margin-bottom: 10px;
 `;
 
-export const MessageAvatar = styled.div`
+export const MessageAvatar = styled.img`
   background-color: #ccc;
   height: 40px;
   width: 40px;

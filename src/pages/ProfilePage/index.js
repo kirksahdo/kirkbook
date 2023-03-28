@@ -8,23 +8,30 @@ import { useEffect, useState } from "react";
 import LoadingScreen from "../../components/LoadingScreen";
 import { auth } from "../../config/firebase";
 import { enviarSolicitacao as eSolicitacao } from "../../controllers/SolicitacaoController";
+import { AiFillEdit } from "react-icons/ai";
+import EditarPerfil from "../../components/EditarPerfil";
 
 const ProfilePage = () => {
 
   const { id } = useParams();
   const [perfil, setPerfil] = useState(null);
+  const [editarPerfilPopup, setEditarPerfilPopup] = useState(false);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
+    carregarPerfil();
+  }, [])
+  
+  const carregarPerfil = () => {
+    setLoading(true);
     getPerfil(id).then(perfil => {
       setPerfil(perfil);
       setLoading(false);
     }).catch(error => {
       navigate("/");
     })
-  }, [])
-  
+  }
 
   const enviarSolicitacao = (destinatario) => {
     eSolicitacao(auth.currentUser.uid, destinatario)
@@ -39,7 +46,12 @@ const ProfilePage = () => {
   const getAddButton = () => {
     const currentUserId = auth.currentUser.uid;
     if (perfil.usuario.id === currentUserId) {
-      return;
+      return (
+        <Button onClick={() => setEditarPerfilPopup(true)}>
+          <AiFillEdit color="#fff" size={25}/>
+          <ButtonText>Editar Perfil</ButtonText>
+        </Button>
+      );
     }
     if (perfil.amigos.map(a => a.id).includes(currentUserId)) {
       return (
@@ -61,6 +73,10 @@ const ProfilePage = () => {
     <>
       {loading && <LoadingScreen />}
       {!loading && <Container>
+        {editarPerfilPopup && <EditarPerfil id={id} isOpen={editarPerfilPopup} onClose={() => {
+          setEditarPerfilPopup(false); 
+          carregarPerfil();
+        }}/>}
         <UserProfile>
           <User>
             <UserImageCape src={perfil.usuario.urlFotoCapa ? perfil.usuario.urlFotoCapa : defaultCape}/>
@@ -68,8 +84,8 @@ const ProfilePage = () => {
               <UserImageProfile src={perfil.usuario.urlFotoPerfil ? perfil.usuario.urlFotoPerfil : defaultProfile}/>
               <UserData>
                 <UserName>{perfil.usuario.nome}</UserName>
-                <UserFriendsNumber>{perfil.amigos.length} amigos</UserFriendsNumber>
                 <UserFriendsNumber> {perfil.usuario.cidade} - {perfil.usuario.estado} </UserFriendsNumber>
+                {perfil.usuario.sexo && <UserFriendsNumber> {perfil.usuario.sexo} </UserFriendsNumber>}
               </UserData>
               {
                 getAddButton()
@@ -86,7 +102,7 @@ const ProfilePage = () => {
                 <MainText>Amigos - {perfil.amigos.length}</MainText>
                 {perfil.amigos.length > 0 ? (
                   perfil.amigos.map((a,i) => (
-                    <a key={i} href={`/user/${a.id}` }><UserFriendPhoto src={a.urlFotoPerfil || defaultProfile} /></a>
+                    <a key={i} title={a.nome} href={`/user/${a.id}` }><UserFriendPhoto src={a.urlFotoPerfil || defaultProfile} /></a>
                   ))
                 ) : (
                   <SubText>{"Sem amigos no momento. =("}</SubText>

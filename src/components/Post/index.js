@@ -3,11 +3,12 @@ import defaultProfile from "../../assets/user.jpeg";
 import { useEffect, useState } from "react";
 import { getUsuario } from "../../controllers/UserController";
 import moment from "moment/moment";
-import { addComentario, addCurtida, removerCurtida, editarPublicacao as ePublicacao } from "../../controllers/PublicacaoController";
+import { addComentario, addCurtida, removerCurtida, editarPublicacao as ePublicacao, excluirPublicacao } from "../../controllers/PublicacaoController";
 import { auth } from "../../config/firebase";
 import { useToast } from "../../contexts/ToastContext";
 import LoadingScreen from "../LoadingScreen";
 import EditPostPopup from "../EditPostPopup";
+import Popup from "../Popup";
 
 const Post = ({publicacao}) => {
   
@@ -20,6 +21,7 @@ const Post = ({publicacao}) => {
   const [ comentario, setComentario] = useState("");
   const { addToast } = useToast();
   const [ editPopup, setEditPopup ] = useState(false);
+  const [ deletePopup, setDeletePopup ] = useState(false);
   
 
   useEffect(() => {
@@ -84,6 +86,20 @@ const Post = ({publicacao}) => {
       })
   }
 
+  const deletarPublicacao = () => {
+    setIsLoading(true);
+    excluirPublicacao(publi.id)
+      .then(_ => {
+        addToast("Publicação excluida com sucesso!", "#008000", "#fff");
+        setDeletePopup(false);
+        setPubli(null);
+      })
+      .catch(_ => {
+        addToast("Erro ao excluir publicação!", "#FF0000", "#fff");
+      })
+      .finally(_ => setIsLoading(false));
+  }
+
   const comentarPublicacao = () => {
     if(comentario.trim() === "") return;
     setIsLoading(true);
@@ -98,16 +114,23 @@ const Post = ({publicacao}) => {
       });
   }
 
+  if(!publi) {
+    return;
+  }
+
   return (
     <Container>
       {isLoading && <LoadingScreen />}
-      {editPopup && (
-        <EditPostPopup
-         id={publicacao.id}
-         isOpen={editPopup}
-         onClose={() => setEditPopup(false)}
-         onSubmit={editarPublicacao}/>
-      )}
+      <EditPostPopup
+        id={publicacao.id}
+        isOpen={editPopup}
+        onClose={() => setEditPopup(false)}
+        onSubmit={editarPublicacao}/>
+      <Popup 
+        question="Você tem certeza que quer deletar esta publicação?"
+        isOpen={deletePopup}
+        onCancel={() => setDeletePopup(false)}
+        onConfirm={deletarPublicacao}/>
       <Header>
         <UserProfilePhoto>
           <PostProfilePhoto src={usuario.urlFotoPerfil ?? defaultProfile} />
@@ -117,7 +140,7 @@ const Post = ({publicacao}) => {
           <SubText href="#"> {moment(publi.timestamp).format("DD/MM/YYYY [às] HH:mm")}</SubText>
         </UserData>
         {auth.currentUser.uid === usuario.id && <EditIcon size={25} onClick={() => setEditPopup(true)}/>}
-        {auth.currentUser.uid === usuario.id && <DeleteIcon size={25}/>}
+        {auth.currentUser.uid === usuario.id && <DeleteIcon size={25} onClick={() => setDeletePopup(true)}/>}
       </Header>
       <Content>
         <PostText>{publi.conteudo}</PostText>

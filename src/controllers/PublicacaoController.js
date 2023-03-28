@@ -184,6 +184,18 @@ export const editarPublicacao = (conteudo, imagem, publicacao) => {
   } catch (error) {
     reject(error);
   }
-    
+  });
+}
+
+export const excluirPublicacao = (publicacao) => {
+  return new Promise(async(resolve, reject) => {
+    try {
+      const updates = {};
+      updates[`publicacoes/${publicacao}`] = null;
+      await update(ref(database), updates);
+      resolve();
+  } catch (error) {
+    reject(error);
+  }
   });
 }

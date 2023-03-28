@@ -25,6 +25,7 @@ const RegisterForm = ({onBack, onClickForgetPassword}) => {
       return addToast("Erro, verifique se os campos estão certos!", "#FF0000", "#fff");
     }
     const usuario = new Usuario(email, nome, dataNasc, cidade, estado, sexo);
+    usuario.urlFotoPerfil = "https://cdn-icons-png.flaticon.com/512/2354/2354573.png";
     setIsLoading(true);
     try{
       await rCadastro(usuario, senha);

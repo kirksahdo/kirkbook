@@ -46,9 +46,8 @@ const Conversa = ({id, remetente, destinatario, handleFormSubmit, handleInputCha
     if(remetente.id === id) {
       return remetente.urlFotoPerfil;
     }
-    return destinatario.urlFotoPerfil
+    return destinatario.urlFotoPerfil;
   }
-
 
 
   return (
@@ -57,11 +56,7 @@ const Conversa = ({id, remetente, destinatario, handleFormSubmit, handleInputCha
         {messages && messages.map((message, index) => (
           message.autor !== auth.currentUser.uid ? (
             <MessageContainer key={index}>
-              <MessageAvatar
-                style={{
-                  backgroundImage: `url(${getProfileImage(message.autor)})`,
-                }}
-              />
+              <MessageAvatar src={getProfileImage(message.autor)}/>
               <MessageBubble>
                 <MessageText>{message.mensagem}</MessageText>
                 <MessageTime>
@@ -71,11 +66,7 @@ const Conversa = ({id, remetente, destinatario, handleFormSubmit, handleInputCha
             </MessageContainer>
           ): (
             <MessageSenderContainer key={index}>
-              <MessageAvatar
-                style={{
-                  backgroundImage: `url(${getProfileImage(message.autor)})`,
-                }}
-              />
+              <MessageAvatar src={getProfileImage(message.autor)}/>
               <MessageBubble>
                 <MessageText>{message.mensagem}</MessageText>
                 <MessageTime>

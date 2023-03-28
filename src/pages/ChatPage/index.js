@@ -17,6 +17,7 @@ import LoadingScreen from "../../components/LoadingScreen";
 import { addMensagem, criarConversa, getConversaId } from "../../controllers/ConversaController";
 import { getUsuario } from "../../controllers/UserController";
 import Conversa from "../../components/Conversa";
+import Popup from "../../components/Popup";
 
 const ChatPage = () => {
   const [newMessage, setNewMessage] = useState("");

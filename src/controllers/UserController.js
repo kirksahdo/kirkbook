@@ -1,8 +1,9 @@
-import { auth, database } from "../config/firebase";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-import { getDatabase, ref, set, get, child } from "firebase/database"
+import { auth, database, storage } from "../config/firebase";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updatePassword } from "firebase/auth";
+import { getDatabase, ref, set, get, child, update } from "firebase/database"
 import { getPublicacoesUsuario } from "./PublicacaoController";
 import { getAmigos } from "./AmigosController";
+import { ref as refStorage, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export const fazerLogin = (email, senha) => {
   return new Promise((resolve, reject) => {
@@ -86,6 +87,40 @@ export const getAllUsuarios = () => {
       }else {
         throw Error("Erro ao carregar usuários");
       }
+    } catch(error) {
+      reject(error);
+    }
+  });
+}
+
+export const editarPerfil = (id, dados) => {
+  return new Promise(async(resolve, reject) => {
+    try{
+      const dbRef = ref(database);
+      const updates = {};
+      updates[`usuarios/${id}/biografia`] = dados.biografia;
+      updates[`usuarios/${id}/nome`] = dados.nome;
+      updates[`usuarios/${id}/dataDeNascimento`] = dados.dataDeNascimento;
+      updates[`usuarios/${id}/sexo`] = dados.sexo;
+      updates[`usuarios/${id}/cidade`] = dados.cidade;
+      updates[`usuarios/${id}/estado`] = dados.estado;
+      if (dados.fotoPerfil) {
+        const storageRef = refStorage(storage, `usuarios/perfil/${id}`);
+        const snapshot = await uploadBytes(storageRef, dados.fotoPerfil);
+        const url = await getDownloadURL(snapshot.ref);
+        updates[`usuarios/${id}/urlFotoPerfil`] = url;
+      }
+      if (dados.fotoCapa) {
+        const storageRef = refStorage(storage, `usuarios/capa/${id}`);
+        const snapshot = await uploadBytes(storageRef, dados.fotoCapa);
+        const url = await getDownloadURL(snapshot.ref);
+        updates[`usuarios/${id}/urlFotoCapa`] = url;
+      }
+      await update(dbRef, updates);
+      if (dados.senha.trim() !== "") {
+        await updatePassword(auth.currentUser, dados.senha);
+      }
+      resolve();
     } catch(error) {
       reject(error);
     }
