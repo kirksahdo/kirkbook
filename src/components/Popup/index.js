@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-const Popup = ({isOpen, question, onConfirm, onCancel}) => {
+const Popup = ({ isOpen, question, onConfirm, onCancel }) => {
   const handleClose = () => {
     onCancel();
   };

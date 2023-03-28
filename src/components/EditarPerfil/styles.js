@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { FaWindowClose } from "react-icons/fa";
+import { FaWindowClose } from 'react-icons/fa';
 
 export const Overlay = styled.div`
   position: fixed;
@@ -15,7 +15,7 @@ export const Overlay = styled.div`
 `;
 
 export const Content = styled.div`
-  background-color: ${props => props.theme.secondaryBackgroundColor};
+  background-color: ${(props) => props.theme.secondaryBackgroundColor};
   border-radius: 8px;
   padding: 30px;
   max-width: 600px;
@@ -28,16 +28,16 @@ export const Content = styled.div`
   }
 
   &::-webkit-scrollbar-track {
-    background-color: ${props => props.theme.secondaryBackgroundColor};
+    background-color: ${(props) => props.theme.secondaryBackgroundColor};
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${props => props.theme.backgroundColor};
+    background-color: ${(props) => props.theme.backgroundColor};
     border-radius: 20px;
   }
 
   &::-webkit-scrollbar-thumb {
-    box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   }
 `;
 
@@ -50,13 +50,13 @@ export const Header = styled.div`
 `;
 
 export const HeaderTitle = styled.h1`
-  color: ${props => props.theme.textColor};
+  color: ${(props) => props.theme.textColor};
   font-size: 1rem;
   width: 100%;
 `;
 
 export const CloseButton = styled(FaWindowClose)`
-  color: ${props => props.theme.textColor};
+  color: ${(props) => props.theme.textColor};
   &:hover {
     cursor: pointer;
   }
@@ -74,7 +74,7 @@ export const Input = styled.input`
 export const ImageInput = styled.input`
   display: block;
   margin-bottom: 16px;
-  color: ${props => props.theme.textColor};
+  color: ${(props) => props.theme.textColor};
 `;
 
 export const ImagePreview = styled.img`
@@ -85,7 +85,7 @@ export const ImagePreview = styled.img`
 `;
 
 export const Button = styled.button`
-  background-color: ${props => props.theme.primaryColor};
+  background-color: ${(props) => props.theme.primaryColor};
   color: white;
   padding: 8px;
   border-radius: 4px;
@@ -94,6 +94,6 @@ export const Button = styled.button`
   cursor: pointer;
   width: 100%;
   &:hover {
-    background-color: ${props => props.theme.secondaryColor};
+    background-color: ${(props) => props.theme.secondaryColor};
   }
 `;

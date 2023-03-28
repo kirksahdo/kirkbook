@@ -7,5 +7,4 @@ const LoadingScreen = () => (
   </Container>
 );
 
-
 export default LoadingScreen;

@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { IoMdPersonAdd, IoMdRemove} from "react-icons/io";
+import { IoMdPersonAdd, IoMdRemove } from 'react-icons/io';
 
 export const Container = styled.div`
   width: 100%;
   height: 100%;
-  background-color: ${props => props.theme.backgroundColor};
+  background-color: ${(props) => props.theme.backgroundColor};
   padding-top: 120px;
   padding-bottom: 50px;
 `;
@@ -14,14 +14,14 @@ export const UserProfile = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  background-color: ${props => props.theme.backgroundColor};;
+  background-color: ${(props) => props.theme.backgroundColor};
 `;
 
 export const User = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: ${props => props.theme.secondaryBackgroundColor};
+  background-color: ${(props) => props.theme.secondaryBackgroundColor};
   border-radius: 20px;
   box-shadow: 0px 1px 10px rgb(0, 0, 0, 0.5);
   margin-bottom: 20px;
@@ -60,13 +60,13 @@ export const UserData = styled.div`
 export const UserName = styled.h1`
   font-size: 1.8rem;
   text-transform: capitalize;
-  color: ${props => props.theme.textColor};
+  color: ${(props) => props.theme.textColor};
   font-weight: bold;
 `;
 
 export const UserFriendsNumber = styled.h2`
   font-size: 0.95rem;
-  color: ${props => props.theme.textColor};
+  color: ${(props) => props.theme.textColor};
 `;
 
 export const ButtonAdd = styled(IoMdPersonAdd)`
@@ -82,14 +82,14 @@ export const Button = styled.button`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-color: ${props => props.theme.primaryColor};
+  background-color: ${(props) => props.theme.primaryColor};
   border: none;
   gap: 10px;
   padding: 0.375rem 0.75rem;
   line-height: 1.5;
   border-radius: 0.25rem;
   &:hover {
-    background-color: ${props => props.theme.secondaryColor};
+    background-color: ${(props) => props.theme.secondaryColor};
   }
   &:focus {
     outline: none;
@@ -105,7 +105,7 @@ export const UserPubInfo = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-`
+`;
 
 export const UserBioFriends = styled.div`
   width: 35%;
@@ -126,7 +126,7 @@ export const UserBio = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  background-color: ${props => props.theme.secondaryBackgroundColor};
+  background-color: ${(props) => props.theme.secondaryBackgroundColor};
   padding: 16px;
   border-radius: 20px;
   box-shadow: 0px 1px 10px rgb(0, 0, 0, 0.5);
@@ -136,7 +136,7 @@ export const UserBio = styled.div`
 export const MainText = styled.h1`
   font-size: 1.2em;
   width: 100%;
-  color: ${props => props.theme.textColor};
+  color: ${(props) => props.theme.textColor};
   font-weight: bold;
   margin-bottom: 10px;
 `;
@@ -144,7 +144,7 @@ export const MainText = styled.h1`
 export const SubText = styled.p`
   font-size: 0.8em;
   width: 100%;
-  color: ${props => props.theme.textColor};
+  color: ${(props) => props.theme.textColor};
 `;
 
 export const UserFriendPhoto = styled.img`
@@ -153,4 +153,4 @@ export const UserFriendPhoto = styled.img`
   &:hover {
     cursor: pointer;
   }
-`;  
+`;

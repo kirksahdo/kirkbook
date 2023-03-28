@@ -1,5 +1,12 @@
 export default class Publicacao {
-  constructor(conteudo, timestamp, urlMidia="", id, curtidas = {}, comentarios={}) {
+  constructor(
+    conteudo,
+    timestamp,
+    urlMidia = '',
+    id,
+    curtidas = {},
+    comentarios = {}
+  ) {
     this.conteudo = conteudo;
     this.urlMidia = urlMidia;
     this.timestamp = timestamp;

@@ -1,9 +1,17 @@
-import { auth, database, storage } from "../config/firebase";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updatePassword } from "firebase/auth";
-import { getDatabase, ref, set, get, child, update } from "firebase/database"
-import { getPublicacoesUsuario } from "./PublicacaoController";
-import { getAmigos } from "./AmigosController";
-import { ref as refStorage, uploadBytes, getDownloadURL } from "firebase/storage";
+import { auth, database, storage } from '../config/firebase';
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  updatePassword,
+} from 'firebase/auth';
+import { getDatabase, ref, set, get, child, update } from 'firebase/database';
+import { getPublicacoesUsuario } from './PublicacaoController';
+import { getAmigos } from './AmigosController';
+import {
+  ref as refStorage,
+  uploadBytes,
+  getDownloadURL,
+} from 'firebase/storage';
 
 export const fazerLogin = (email, senha) => {
   return new Promise((resolve, reject) => {
@@ -25,35 +33,37 @@ export const realizarCadastro = (usuario, senha) => {
       .then((userCredential) => {
         usuario.id = userCredential.user.uid;
         set(ref(database, `usuarios/${usuario.id}`), usuario)
-          .then(_ => {
-            resolve(usuario)
+          .then((_) => {
+            resolve(usuario);
           })
-          .catch(error => {
+          .catch((error) => {
             reject(error);
-          })
+          });
       })
       .catch((error) => {
         reject(error);
-      })
-  })
-}
+      });
+  });
+};
 
 export const getUsuario = (id) => {
   return new Promise((resolve, reject) => {
     const dbRef = ref(getDatabase());
-    get(child(dbRef, `usuarios/${id}`)).then((snapshot) => {
-      if (snapshot.exists()) {
-        const usuario = snapshot.val();
-        usuario.amigos = usuario.amigos ? Object.values(usuario.amigos) : [];
-        resolve(usuario);
-      } else {
-        reject("Usuário não encontrado!");
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
+    get(child(dbRef, `usuarios/${id}`))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const usuario = snapshot.val();
+          usuario.amigos = usuario.amigos ? Object.values(usuario.amigos) : [];
+          resolve(usuario);
+        } else {
+          reject('Usuário não encontrado!');
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   });
-}; 
+};
 
 export const getPerfil = (id) => {
   return new Promise(async (resolve, reject) => {
@@ -64,38 +74,38 @@ export const getPerfil = (id) => {
       const resultado = {
         usuario: usuario,
         publicacoes: publicacoes,
-        amigos: amigos
+        amigos: amigos,
       };
       resolve(resultado);
     } catch (error) {
       reject(error);
     }
   });
-}
+};
 
 export const getAllUsuarios = () => {
-  return new Promise(async(resolve, reject) => {
-    try{
+  return new Promise(async (resolve, reject) => {
+    try {
       const dbRef = ref(database);
-      const snapshot = await get(child(dbRef, "usuarios/"));
-      if (snapshot.exists()){
+      const snapshot = await get(child(dbRef, 'usuarios/'));
+      if (snapshot.exists()) {
         const usuarios = Object.values(snapshot.val());
-        for(const u of usuarios){
+        for (const u of usuarios) {
           u.amigos = u.amigos ? Object.values(u.amigos) : [];
         }
         resolve(usuarios);
-      }else {
-        throw Error("Erro ao carregar usuários");
+      } else {
+        throw Error('Erro ao carregar usuários');
       }
-    } catch(error) {
+    } catch (error) {
       reject(error);
     }
   });
-}
+};
 
 export const editarPerfil = (id, dados) => {
-  return new Promise(async(resolve, reject) => {
-    try{
+  return new Promise(async (resolve, reject) => {
+    try {
       const dbRef = ref(database);
       const updates = {};
       updates[`usuarios/${id}/biografia`] = dados.biografia;
@@ -117,12 +127,12 @@ export const editarPerfil = (id, dados) => {
         updates[`usuarios/${id}/urlFotoCapa`] = url;
       }
       await update(dbRef, updates);
-      if (dados.senha.trim() !== "") {
+      if (dados.senha.trim() !== '') {
         await updatePassword(auth.currentUser, dados.senha);
       }
       resolve();
-    } catch(error) {
+    } catch (error) {
       reject(error);
     }
   });
-}
+};

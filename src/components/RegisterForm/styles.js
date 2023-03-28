@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { FaArrowCircleLeft } from "react-icons/fa";
+import styled from 'styled-components';
+import { FaArrowCircleLeft } from 'react-icons/fa';
 
 export const Container = styled.div`
   display: flex;
@@ -22,7 +22,7 @@ export const TitleForm = styled.h1`
 
 export const EnterButton = styled.button`
   width: 60%;
-  background-color: ${props => props.theme.accentColor};
+  background-color: ${(props) => props.theme.accentColor};
   padding: 20px;
   border: none;
   border-radius: 20px;
@@ -30,25 +30,25 @@ export const EnterButton = styled.button`
   font-weight: bold;
   margin-top: 20px;
   &:hover {
-    background-color: ${props => props.theme.disabledColor};
+    background-color: ${(props) => props.theme.disabledColor};
   }
 `;
 
 export const ALink = styled.a`
-  color: ${props => props.theme.accentColor};
+  color: ${(props) => props.theme.accentColor};
   margin-bottom: 15px;
   &:hover {
     cursor: pointer;
   }
-`;  
+`;
 
 export const ArrowBack = styled(FaArrowCircleLeft)`
-  color: ${props => props.theme.accentColor};
+  color: ${(props) => props.theme.accentColor};
   position: absolute;
   top: 5%;
   left: 5%;
   &:hover {
-    color: ${props => props.theme.disabledColor};
+    color: ${(props) => props.theme.disabledColor};
     cursor: pointer;
   }
 `;

@@ -4,7 +4,7 @@ export const Container = styled.div`
   width: 100vw;
   height: 100vh;
   padding-top: 120px;
-  background-color: ${props => props.theme.backgroundColor};
+  background-color: ${(props) => props.theme.backgroundColor};
 `;
 
 export const Content = styled.div`
@@ -17,7 +17,7 @@ export const Content = styled.div`
 
 export const NoSolicitation = styled.h1`
   font-size: 1.5rem;
-  color: ${props => props.theme.textColor};
+  color: ${(props) => props.theme.textColor};
   display: flex;
   text-align: center;
 `;

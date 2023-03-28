@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import ReactInputMask from "react-input-mask";
+import styled from 'styled-components';
+import ReactInputMask from 'react-input-mask';
 
 export const InputContainer = styled.div`
   display: flex;
@@ -8,7 +8,6 @@ export const InputContainer = styled.div`
   border: 2px solid #fff;
   border-radius: 20px;
   margin: 10px 0;
-
 `;
 
 export const Input = styled(ReactInputMask)`
@@ -50,4 +49,4 @@ export const Icon = styled.div`
   justify-content: center;
   align-items: center;
   border-right: 2px solid #fff;
-`
+`;

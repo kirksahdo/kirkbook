@@ -7,7 +7,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: ${props => props.theme.primaryColor};
+  background-color: ${(props) => props.theme.primaryColor};
 `;
 
 const Title = styled.h1`

@@ -1,6 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Overlay, Content, CloseButton, Input, ImageInput, ImagePreview, Button, Header, HeaderTitle } from './styles';
+import {
+  Overlay,
+  Content,
+  CloseButton,
+  Input,
+  ImageInput,
+  ImagePreview,
+  Button,
+  Header,
+  HeaderTitle,
+} from './styles';
 import { useToast } from '../../contexts/ToastContext';
 import { getPublicacao } from '../../controllers/PublicacaoController';
 import LoadingScreen from '../LoadingScreen';
@@ -13,7 +23,7 @@ const EditPostPopup = ({ id, isOpen, onClose, onSubmit }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const imageRef = useRef(null);
-  const {addToast} = useToast();
+  const { addToast } = useToast();
   const contentRef = useRef(null);
 
   useEffect(() => {
@@ -26,7 +36,7 @@ const EditPostPopup = ({ id, isOpen, onClose, onSubmit }) => {
   useEffect(() => {
     if (publicacao) {
       setText(publicacao.conteudo);
-      setPreview(publicacao.midiaUrl || "");
+      setPreview(publicacao.midiaUrl || '');
     }
   }, [publicacao]);
 
@@ -45,8 +55,8 @@ const EditPostPopup = ({ id, isOpen, onClose, onSubmit }) => {
     if (!file) {
       return;
     }
-    if( !file.type.includes("image") ) {
-      imageRef.current.value = "";
+    if (!file.type.includes('image')) {
+      imageRef.current.value = '';
       return;
     }
 
@@ -60,9 +70,12 @@ const EditPostPopup = ({ id, isOpen, onClose, onSubmit }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if(text.trim() === "") {
-      return addToast("Você deve preencher o campo de texto!", "#FF0000", "#fff");
-      
+    if (text.trim() === '') {
+      return addToast(
+        'Você deve preencher o campo de texto!',
+        '#FF0000',
+        '#fff'
+      );
     }
     onSubmit({ text, image });
   };
@@ -70,14 +83,14 @@ const EditPostPopup = ({ id, isOpen, onClose, onSubmit }) => {
   const lerPublicacao = () => {
     setIsLoading(true);
     getPublicacao(id)
-    .then(publicacao => {
-      setPublicacao(publicacao);
-    })
-    .catch(error => {
-      onClose();
-    })
-    .finally(_ => setIsLoading(false));
-  }
+      .then((publicacao) => {
+        setPublicacao(publicacao);
+      })
+      .catch((error) => {
+        onClose();
+      })
+      .finally((_) => setIsLoading(false));
+  };
 
   return (
     <>
@@ -90,8 +103,18 @@ const EditPostPopup = ({ id, isOpen, onClose, onSubmit }) => {
               <CloseButton size={30} onClick={onClose} />
             </Header>
             <form onSubmit={handleSubmit}>
-              <Input type="text" placeholder="Digite o texto da publicação" value={text} onChange={handleTextChange} />
-              <ImageInput ref={imageRef} type="file" accept="image/*" onChange={handleImageChange} />
+              <Input
+                type="text"
+                placeholder="Digite o texto da publicação"
+                value={text}
+                onChange={handleTextChange}
+              />
+              <ImageInput
+                ref={imageRef}
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+              />
               {preview && <ImagePreview src={preview} />}
               <Button type="submit">Salvar</Button>
             </form>

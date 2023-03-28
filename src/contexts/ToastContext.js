@@ -11,8 +11,8 @@ const ToastContainer = styled.div`
 `;
 
 const ToastWrapper = styled.div`
-  background-color: ${props => props.bgColor || '#212529'};
-  color: ${props => props.color || '#fff'};
+  background-color: ${(props) => props.bgColor || '#212529'};
+  color: ${(props) => props.color || '#fff'};
   padding: 0.75rem 1.25rem;
   border-radius: 0.25rem;
   margin-bottom: 0.5rem;
@@ -29,10 +29,12 @@ const ToastProvider = ({ children }) => {
 
   const addToast = (message, bgColor, color) => {
     const toast = { message, bgColor, color };
-    setToasts(prevToasts => [...prevToasts, toast]);
-    setTimeout(() => setToasts(prevToasts => prevToasts.filter((v, _) => v !== toast)), 3000);
+    setToasts((prevToasts) => [...prevToasts, toast]);
+    setTimeout(
+      () => setToasts((prevToasts) => prevToasts.filter((v, _) => v !== toast)),
+      3000
+    );
   };
-
 
   return (
     <ToastContext.Provider value={{ addToast }}>

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
 const Container = styled.div`
   position: relative;
@@ -59,7 +59,7 @@ const ImageInput = ({ onChange }) => {
       {previewUrl ? <Image src={previewUrl} alt="Preview" /> : null}
       <Input type="file" onChange={handleImageChange} />
       <Label htmlFor="image-input">
-        {previewUrl ? "Trocar imagem" : "Adicionar imagem"}
+        {previewUrl ? 'Trocar imagem' : 'Adicionar imagem'}
       </Label>
     </Container>
   );

@@ -1,44 +1,52 @@
-import { TitleForm, EnterButton, Container, ALink } from "./styles";
-import { useNavigate } from "react-router-dom";
-import InputLogin from "../../components/InputLogin";
-import { useState } from "react";
-import { fazerLogin as fLogin } from "../../controllers/UserController";
-import { useToast } from "../../contexts/ToastContext";
-import LoadingScreen from "../LoadingScreen";
+import { TitleForm, EnterButton, Container, ALink } from './styles';
+import { useNavigate } from 'react-router-dom';
+import InputLogin from '../../components/InputLogin';
+import { useState } from 'react';
+import { fazerLogin as fLogin } from '../../controllers/UserController';
+import { useToast } from '../../contexts/ToastContext';
+import LoadingScreen from '../LoadingScreen';
 
-const LoginForm = ({onClickRegister, onClickForgetPassword}) => {
-
-  const [login, setLogin] = useState("");
-  const [senha, setSenha] = useState("");
+const LoginForm = ({ onClickRegister, onClickForgetPassword }) => {
+  const [login, setLogin] = useState('');
+  const [senha, setSenha] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  
-  const {addToast, removeToast } = useToast();
+
+  const { addToast, removeToast } = useToast();
 
   const fazerLogin = async (email, senha) => {
     setIsLoading(true);
-    try{
+    try {
       await fLogin(email, senha);
-      addToast("Login bem sucedido!", "#008000", "#fff");
+      addToast('Login bem sucedido!', '#008000', '#fff');
       setIsLoading(false);
-      navigate("/");
-    } catch(error) {
+      navigate('/');
+    } catch (error) {
       setIsLoading(false);
-      addToast("Credenciais inválidas!", "#FF0000", "#fff");
+      addToast('Credenciais inválidas!', '#FF0000', '#fff');
     }
-  }
+  };
 
   return (
     <Container>
       {isLoading && <LoadingScreen />}
       <TitleForm> Login </TitleForm>
-      <InputLogin type="E-mail" value={login} onChangeText = {({target}) => setLogin(target.value)}/>
-      <InputLogin type="Senha" value={senha} onChangeText = {({target}) => setSenha(target.value)} password/>
+      <InputLogin
+        type="E-mail"
+        value={login}
+        onChangeText={({ target }) => setLogin(target.value)}
+      />
+      <InputLogin
+        type="Senha"
+        value={senha}
+        onChangeText={({ target }) => setSenha(target.value)}
+        password
+      />
       <ALink>Esqueceu sua senha?</ALink>
       <ALink onClick={onClickRegister}>Cadastre-se aqui!</ALink>
       <EnterButton onClick={() => fazerLogin(login, senha)}>Entrar</EnterButton>
     </Container>
-  );  
-}
+  );
+};
 
 export default LoginForm;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 100%;
   height: 100%;
-  background-color: ${props => props.theme.backgroundColor};
+  background-color: ${(props) => props.theme.backgroundColor};
   padding-top: 120px;
 `;
 
@@ -18,7 +18,7 @@ export const Posts = styled.div`
 `;
 
 export const Button = styled.button`
-  background-color: ${props => props.theme.primaryColor};
+  background-color: ${(props) => props.theme.primaryColor};
   color: white;
   width: 100%;
   padding: 8px;
@@ -27,6 +27,6 @@ export const Button = styled.button`
   font-size: 16px;
   cursor: pointer;
   &:hover {
-    background-color: ${props => props.theme.secondaryColor};
+    background-color: ${(props) => props.theme.secondaryColor};
   }
 `;

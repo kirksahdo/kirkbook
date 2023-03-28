@@ -6,9 +6,9 @@ export const Container = styled.div`
   display: flex;
   flex-direction: row;
   gap: 30px;
-  background-color: ${props => props.theme.secondaryBackgroundColor};
+  background-color: ${(props) => props.theme.secondaryBackgroundColor};
   padding: 20px;
-  border-bottom: 1px solid ${props => props.theme.textColor};
+  border-bottom: 1px solid ${(props) => props.theme.textColor};
   &:hover {
     cursor: pointer;
   }
@@ -30,10 +30,10 @@ export const UserData = styled.div`
 export const MainText = styled.h1`
   font-size: 1em;
   font-weight: bolder;
-  color: ${props => props.theme.textColor}
+  color: ${(props) => props.theme.textColor};
 `;
 
 export const SubText = styled.h2`
   font-size: 0.9em;
-  color: ${props => props.theme.textColor}
+  color: ${(props) => props.theme.textColor};
 `;

@@ -16,7 +16,7 @@ const PrivateRoute = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
       setLoading(false);
     });
@@ -34,14 +34,14 @@ const PrivateRoute = () => {
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path='/login' element={ <LoginPage /> } />
-      <Route exact path='/' element={<PrivateRoute />}>
-        <Route path='/' element={<HomePage />} >
-          <Route path='/' element={<FeedPage />} />
-          <Route path='user/:id' element={<ProfilePage />} />
-          <Route path='procurar' element={<SearchUserPage />} />
-          <Route path='solicitacoes' element={<SolicitationPage />} />
-          <Route path='conversas' element={<ChatPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route exact path="/" element={<PrivateRoute />}>
+        <Route path="/" element={<HomePage />}>
+          <Route path="/" element={<FeedPage />} />
+          <Route path="user/:id" element={<ProfilePage />} />
+          <Route path="procurar" element={<SearchUserPage />} />
+          <Route path="solicitacoes" element={<SolicitationPage />} />
+          <Route path="conversas" element={<ChatPage />} />
         </Route>
       </Route>
       <Route path="*" element={<Error404Page />} />

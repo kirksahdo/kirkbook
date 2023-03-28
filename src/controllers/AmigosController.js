@@ -1,9 +1,9 @@
-import { child, get, ref } from "firebase/database";
-import { database } from "../config/firebase";
-import { getUsuario } from "./UserController";
+import { child, get, ref } from 'firebase/database';
+import { database } from '../config/firebase';
+import { getUsuario } from './UserController';
 
 export const getAmigos = (usuario) => {
-  return new Promise( async (resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     try {
       const dbRef = ref(database);
       const snapshot = await get(child(dbRef, `usuarios/${usuario}/amigos`));
@@ -14,11 +14,11 @@ export const getAmigos = (usuario) => {
           novoAmigos.push(await getUsuario(a.userId));
         }
         resolve(novoAmigos);
-      }else {
+      } else {
         resolve([]);
       }
     } catch (error) {
       reject(error);
     }
   });
-}
+};

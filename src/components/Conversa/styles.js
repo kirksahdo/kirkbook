@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const MessageList = styled.div`
   flex: 1;
@@ -10,16 +10,16 @@ export const MessageList = styled.div`
   }
 
   &::-webkit-scrollbar-track {
-    background-color: ${props => props.theme.backgroundColor};
+    background-color: ${(props) => props.theme.backgroundColor};
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${props => props.theme.secondaryBackgroundColor};
+    background-color: ${(props) => props.theme.secondaryBackgroundColor};
     border-radius: 20px;
   }
 
   &::-webkit-scrollbar-thumb {
-    box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   }
 `;
 

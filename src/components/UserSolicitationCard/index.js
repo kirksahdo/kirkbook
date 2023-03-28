@@ -1,10 +1,24 @@
-import React from "react";
-import { ButtonAccept, ButtonReject, Buttons, Container, ImageProfile, MainText, SubText, UserData } from "./styles";;
+import React from 'react';
+import {
+  ButtonAccept,
+  ButtonReject,
+  Buttons,
+  Container,
+  ImageProfile,
+  MainText,
+  SubText,
+  UserData,
+} from './styles';
 
-const UserSolicitationCard = ({usuario, to, aceitarSolicitacao, negarSolicitacao}) => {
+const UserSolicitationCard = ({
+  usuario,
+  to,
+  aceitarSolicitacao,
+  negarSolicitacao,
+}) => {
   return (
     <Container to={to}>
-      <ImageProfile src={usuario?.urlFotoPerfil || ""} />
+      <ImageProfile src={usuario?.urlFotoPerfil || ''} />
       <UserData>
         <MainText>{usuario.nome}</MainText>
         <SubText>{`${usuario.cidade} - ${usuario.estado}`}</SubText>
@@ -19,7 +33,7 @@ const UserSolicitationCard = ({usuario, to, aceitarSolicitacao, negarSolicitacao
         </ButtonReject>
       </Buttons>
     </Container>
-  )
+  );
 };
 
 export default UserSolicitationCard;

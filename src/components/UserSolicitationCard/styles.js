@@ -6,7 +6,7 @@ export const Container = styled(Link)`
   display: flex;
   flex-direction: row;
   gap: 30px;
-  background-color: ${props => props.theme.secondaryBackgroundColor};
+  background-color: ${(props) => props.theme.secondaryBackgroundColor};
   padding: 20px;
   border-radius: 10px;
   transform: scale(1);
@@ -33,12 +33,12 @@ export const UserData = styled.div`
 export const MainText = styled.h1`
   font-size: 1em;
   font-weight: bolder;
-  color: ${props => props.theme.textColor}
+  color: ${(props) => props.theme.textColor};
 `;
 
 export const SubText = styled.h2`
   font-size: 0.9em;
-  color: ${props => props.theme.textColor}
+  color: ${(props) => props.theme.textColor};
 `;
 
 export const Buttons = styled.h1`
@@ -54,7 +54,7 @@ export const ButtonAccept = styled.button`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-color: #00FF00;
+  background-color: #00ff00;
   border: none;
   gap: 10px;
   padding: 0.375rem 0.75rem;
@@ -68,7 +68,7 @@ export const ButtonAccept = styled.button`
   }
   h4 {
     font-size: 0.9em;
-    color: ${props => props.theme.textColor};
+    color: ${(props) => props.theme.textColor};
   }
 `;
 
@@ -78,7 +78,7 @@ export const ButtonReject = styled.button`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-color: #FF0000;
+  background-color: #ff0000;
   border: none;
   gap: 10px;
   padding: 0.375rem 0.75rem;
@@ -92,6 +92,6 @@ export const ButtonReject = styled.button`
   }
   h4 {
     font-size: 0.9em;
-    ${props => props.theme.textColor};
+    ${(props) => props.theme.textColor};
   }
 `;

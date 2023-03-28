@@ -1,14 +1,14 @@
-import { Outlet } from "react-router-dom";
-import Navbar from "../../components/Navbar";
-import { Container } from "./styles"
+import { Outlet } from 'react-router-dom';
+import Navbar from '../../components/Navbar';
+import { Container } from './styles';
 
 const HomePage = () => {
   return (
-    <Container> 
+    <Container>
       <Navbar />
       <Outlet />
     </Container>
-  )
-}
+  );
+};
 
 export default HomePage;
