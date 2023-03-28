@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { FaThumbsUp, FaComment, FaShare, FaEllipsisV } from "react-icons/fa";
+import { FaThumbsUp, FaComment, FaShare, FaEllipsisV, FaEdit } from "react-icons/fa";
 import { IoMdSend } from "react-icons/io";
+import { MdDelete } from "react-icons/md";
 
 export const Container = styled.div`
   width: 100%;
@@ -17,6 +18,7 @@ export const Header = styled.div`
   align-items: center;
   border-bottom: 1px solid ${props => props.theme.backgroundColor};
   padding-bottom: 10px;
+  gap: 10px
 `; 
 
 export const Content = styled.div`
@@ -64,12 +66,22 @@ export const ButtonText = styled.h4`
   color: #fff;
 `;
 
-export const DotIcon = styled(FaEllipsisV)`
+export const EditIcon = styled(FaEdit)`
   color: ${props => props.theme.textColor};
   &:hover {
     cursor: pointer;
+    color: ${props => props.theme.primaryColor};
   }
 `;
+
+export const DeleteIcon = styled(MdDelete)`
+  color: ${props => props.theme.textColor};
+  &:hover {
+    cursor: pointer;
+    color: ${props => props.theme.primaryColor};
+  }
+`;
+
 export const LikeIcon = styled(FaThumbsUp)`
   color: #fff;
 `;
@@ -104,6 +116,7 @@ export const UserData = styled.div`
 `;
 
 export const MainText = styled.a`
+  margin-right: 50px;
   font-size: 1.2em;
   color: ${props => props.theme.textColor};
   font-weight: bold;
@@ -113,6 +126,7 @@ export const MainText = styled.a`
 `;
 
 export const SubText = styled.a`
+  margin-right: 50px;
   font-size: 0.8em;
   color: ${props => props.theme.textColor};
   &:hover {

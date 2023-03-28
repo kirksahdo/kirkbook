@@ -5,28 +5,17 @@ import {
   RightContainer,
   Header,
   Title,
-  MessageList,
-  MessageInput,
-  MessageButton,
-  MessageForm,
-  MessageContainer,
-  MessageAvatar,
-  MessageBubble,
-  MessageText,
-  MessageTime,
   LeftHeader,
   NoChat,
 } from "./styles";
-import defaultProfile from "../../assets/user.jpeg";
+
 import UserChatCard from "../../components/UserChatCard";
 import { useEffect } from "react";
 import { getAmigos } from "../../controllers/AmigosController";
 import { auth } from "../../config/firebase";
 import LoadingScreen from "../../components/LoadingScreen";
-import { addMensagem, criarConversa, getConversaId, lerMensagens } from "../../controllers/ConversaController";
-import { off } from "firebase/database";
+import { addMensagem, criarConversa, getConversaId } from "../../controllers/ConversaController";
 import { getUsuario } from "../../controllers/UserController";
-import moment from "moment";
 import Conversa from "../../components/Conversa";
 
 const ChatPage = () => {

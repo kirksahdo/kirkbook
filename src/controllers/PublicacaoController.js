@@ -162,3 +162,28 @@ export const addComentario = (publicacao, usuario, conteudo) => {
     }
   })
 }
+
+export const editarPublicacao = (conteudo, imagem, publicacao) => {
+  return new Promise(async(resolve, reject) => {
+    const storageRef = refStorage(storage, `publicacoes/${publicacao}`);
+    try {
+      if(imagem) {
+        const snapshot = await uploadBytes(storageRef, imagem);
+        const url = await getDownloadURL(snapshot.ref);
+        const updates = {};
+        updates[`publicacoes/${publicacao}/conteudo`] = conteudo;
+        updates[`publicacoes/${publicacao}/midiaUrl`] = url;
+        await update(ref(database), updates);
+      } else {
+        const updates = {};
+        updates[`publicacoes/${publicacao}/conteudo`] = conteudo;
+        await update(ref(database), updates);
+      }
+      const publi = await getPublicacao(publicacao);
+      resolve(publi);
+  } catch (error) {
+    reject(error);
+  }
+    
+  });
+}

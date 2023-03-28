@@ -1,22 +1,25 @@
-import { Buttons, ButtonText, Container, Content, Footer, Header, MainText, PostImage, PostText, SubText, UserData, UserProfilePhoto, Button, LikeIcon, ComentIcon, PostComments, Comment, UsernameComment, CommentArea, CommentProfilePhoto, CommentInput, ShareIcon, SendIcon, DotIcon, LikesLabel, PostProfilePhoto } from "./styles";
+import { Buttons, ButtonText, Container, Content, Footer, Header, MainText, PostImage, PostText, SubText, UserData, UserProfilePhoto, Button, LikeIcon, ComentIcon, PostComments, Comment, UsernameComment, CommentArea, CommentProfilePhoto, CommentInput, ShareIcon, SendIcon, LikesLabel, PostProfilePhoto, EditIcon, DeleteIcon } from "./styles";
 import defaultProfile from "../../assets/user.jpeg";
 import { useEffect, useState } from "react";
 import { getUsuario } from "../../controllers/UserController";
 import moment from "moment/moment";
-import { addComentario, addCurtida, removerCurtida } from "../../controllers/PublicacaoController";
+import { addComentario, addCurtida, removerCurtida, editarPublicacao as ePublicacao } from "../../controllers/PublicacaoController";
 import { auth } from "../../config/firebase";
 import { useToast } from "../../contexts/ToastContext";
 import LoadingScreen from "../LoadingScreen";
+import EditPostPopup from "../EditPostPopup";
 
 const Post = ({publicacao}) => {
   
   const [ isLoaded, setIsLoaded ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(false);
+  const [ showInput, setShowInput ] = useState(false);
   const [ usuario, setUsuario ] = useState(null);
-  const { addToast } = useToast();
   const [ userLogged, setUserLogged ] = useState(null);
   const [ publi, setPubli ] = useState(publicacao);
   const [ comentario, setComentario] = useState("");
+  const { addToast } = useToast();
+  const [ editPopup, setEditPopup ] = useState(false);
   
 
   useEffect(() => {
@@ -64,12 +67,28 @@ const Post = ({publicacao}) => {
     }
   }
 
+  const editarPublicacao = ({ text, image }) => {
+    setIsLoading(true);
+    ePublicacao(text, image, publicacao.id)
+      .then(response => {
+        setPubli(response)
+        addToast("Publicação editada com sucesso!", "#008000", "#fff");
+      })
+      .catch(error => {
+        console.error(error)
+        addToast(error.message, "#FF0000", "#fff");
+      })
+      .finally(_ => {
+        setIsLoading(false);
+        setEditPopup(false);
+      })
+  }
+
   const comentarPublicacao = () => {
     if(comentario.trim() === "") return;
     setIsLoading(true);
     addComentario(publi.id, auth.currentUser.uid, comentario)
       .then(post => {
-        console.log(post)
         setPubli(post);
       })
       .catch(error => addToast(error.message, "#FF0000", "#fff"))
@@ -82,6 +101,13 @@ const Post = ({publicacao}) => {
   return (
     <Container>
       {isLoading && <LoadingScreen />}
+      {editPopup && (
+        <EditPostPopup
+         id={publicacao.id}
+         isOpen={editPopup}
+         onClose={() => setEditPopup(false)}
+         onSubmit={editarPublicacao}/>
+      )}
       <Header>
         <UserProfilePhoto>
           <PostProfilePhoto src={usuario.urlFotoPerfil ?? defaultProfile} />
@@ -90,7 +116,8 @@ const Post = ({publicacao}) => {
           <MainText href={`user/${usuario.id}`}>{usuario.nome}</MainText>
           <SubText href="#"> {moment(publi.timestamp).format("DD/MM/YYYY [às] HH:mm")}</SubText>
         </UserData>
-        <DotIcon />
+        {auth.currentUser.uid === usuario.id && <EditIcon size={25} onClick={() => setEditPopup(true)}/>}
+        {auth.currentUser.uid === usuario.id && <DeleteIcon size={25}/>}
       </Header>
       <Content>
         <PostText>{publi.conteudo}</PostText>
@@ -105,7 +132,7 @@ const Post = ({publicacao}) => {
               {publi.curtidas.includes(auth.currentUser.uid) ? "Curtido" : "Curtir"}
             </ButtonText>
           </Button>
-          <Button>
+          <Button onClick={() => setShowInput(!showInput)}>
             <ComentIcon />
             <ButtonText>Comentar</ButtonText>
           </Button>
@@ -119,17 +146,19 @@ const Post = ({publicacao}) => {
             <Comment key={v.timestamp}><UsernameComment href="#">{v.usuario.nome}:</UsernameComment> {v.conteudo}</Comment>
           ))}
         </PostComments>
-        <CommentArea>
-          <CommentProfilePhoto src={userLogged.urlFotoPerfil} />
-          <CommentInput 
-            value={comentario} 
-            type="text" 
-            placeholder="Deixe seu comentário"
-            onChange={({target}) => setComentario(target.value)}/>
-          <Button onClick={() => comentarPublicacao()}>
-            <SendIcon />
-          </Button>
-        </CommentArea>
+        {showInput && (
+          <CommentArea>
+            <CommentProfilePhoto src={userLogged.urlFotoPerfil} />
+            <CommentInput 
+              value={comentario} 
+              type="text" 
+              placeholder="Deixe seu comentário"
+              onChange={({target}) => setComentario(target.value)}/>
+            <Button onClick={() => comentarPublicacao()}>
+              <SendIcon />
+            </Button>
+          </CommentArea>
+        )}
       </Footer>
     </Container>
   );
