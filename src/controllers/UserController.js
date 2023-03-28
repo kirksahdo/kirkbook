@@ -43,7 +43,7 @@ export const getUsuario = (id) => {
     get(child(dbRef, `usuarios/${id}`)).then((snapshot) => {
       if (snapshot.exists()) {
         const usuario = snapshot.val();
-        usuario.amigos = Object.values(usuario.amigos) || [];
+        usuario.amigos = usuario.amigos ? Object.values(usuario.amigos) : [];
         resolve(usuario);
       } else {
         reject("Usuário não encontrado!");

@@ -68,7 +68,7 @@ const ProfilePage = () => {
               <UserImageProfile src={perfil.usuario.urlFotoPerfil ? perfil.usuario.urlFotoPerfil : defaultProfile}/>
               <UserData>
                 <UserName>{perfil.usuario.nome}</UserName>
-                <UserFriendsNumber>18 amigos</UserFriendsNumber>
+                <UserFriendsNumber>{perfil.amigos.length} amigos</UserFriendsNumber>
                 <UserFriendsNumber> {perfil.usuario.cidade} - {perfil.usuario.estado} </UserFriendsNumber>
               </UserData>
               {
@@ -85,8 +85,8 @@ const ProfilePage = () => {
               <UserBio>
                 <MainText>Amigos - {perfil.amigos.length}</MainText>
                 {perfil.amigos.length > 0 ? (
-                  perfil.amigos.map(a => (
-                    <a href={`/user/${a.id}` }><UserFriendPhoto src={a.urlFotoPerfil || defaultProfile} /></a>
+                  perfil.amigos.map((a,i) => (
+                    <a key={i} href={`/user/${a.id}` }><UserFriendPhoto src={a.urlFotoPerfil || defaultProfile} /></a>
                   ))
                 ) : (
                   <SubText>{"Sem amigos no momento. =("}</SubText>

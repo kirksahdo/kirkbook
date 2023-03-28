@@ -15,78 +15,138 @@ import {
   MessageText,
   MessageTime,
   LeftHeader,
+  NoChat,
 } from "./styles";
+import defaultProfile from "../../assets/user.jpeg";
+import UserChatCard from "../../components/UserChatCard";
+import { useEffect } from "react";
+import { getAmigos } from "../../controllers/AmigosController";
+import { auth } from "../../config/firebase";
+import LoadingScreen from "../../components/LoadingScreen";
+import { addMensagem, criarConversa, getConversaId, lerMensagens } from "../../controllers/ConversaController";
+import { off } from "firebase/database";
+import { getUsuario } from "../../controllers/UserController";
+import moment from "moment";
+import Conversa from "../../components/Conversa";
 
 const ChatPage = () => {
-  const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [amigos, setAmigos] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [destinatario, setDestinatario] = useState(null);
+  const [conversa, setConversa] = useState("");
+  const [user, setUser] = useState(null);
+  
 
+  useEffect(() => {
+    listarAmigos();
+  }, [])
+  
+  useEffect(() => {
+    if(!destinatario) return;
+    setConversa("");
+    setIsLoading(true);
+    getConversa();
+  }, [destinatario]);
+
+  const listarAmigos = async () => {
+    let currentUser;
+    try {
+      currentUser = await getUsuario(auth.currentUser.uid);
+      setUser(currentUser);
+    } catch (error) {
+      console.error(error);
+      return;
+    }
+    getAmigos(currentUser.id)
+      .then(amigos => {
+        setAmigos(amigos);
+      })
+      .catch(error => {
+        console.error(error);
+      })
+      .finally(_ => {
+        setIsLoading(false);
+      })
+  }
+  
+  const getConversa = async() => {
+    try {
+      let conversaId = await getConversaId(auth.currentUser.uid, destinatario.id);
+      if (conversaId === "") {
+        conversaId = await criarConversa(auth.currentUser.uid, destinatario.id);
+      }
+      setConversa(conversaId);
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const enviarMensagem = async() => {
+    try { 
+      setIsLoading(true);
+      await addMensagem(conversa, newMessage, auth.currentUser.uid);
+      setNewMessage("");
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  
   const handleInputChange = (event) => {
     setNewMessage(event.target.value);
   };
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    if (newMessage.trim() !== "") {
-      setMessages([
-        ...messages,
-        {
-          text: newMessage,
-          time: new Date(),
-          user: {
-            name: "John",
-            avatarUrl:
-              "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png",
-          },
-        },
-      ]);
-      setNewMessage("");
-    }
+    enviarMensagem();
   };
 
   return (
     <Container>
+      {isLoading && <LoadingScreen />}
       <LeftContainer>
         <LeftHeader>
           <Title>Amigos</Title>
         </LeftHeader>
         <ul>
-          <li>User 1</li>
-          <li>User 2</li>
-          <li>User 3</li>
-          <li>User 4</li>
+          {amigos.length > 0 ? amigos.map((a, i) => (
+            <li key={i}>
+              <UserChatCard 
+                usuario={a}
+                onClick={() => {
+                  setDestinatario(a)
+                }}/>
+            </li>
+          )) : (
+            <li>{"Você não possui amigos =("}</li>
+          )}
+          
         </ul>
       </LeftContainer>
       <RightContainer>
-        <Header>
-          <Title>Chat with User 1</Title>
-        </Header>
-        <MessageList>
-          {messages.map((message, index) => (
-            <MessageContainer key={index}>
-              <MessageAvatar
-                style={{
-                  backgroundImage: `url(${message.user.avatarUrl})`,
-                }}
-              />
-              <MessageBubble>
-                <MessageText>{message.text}</MessageText>
-                <MessageTime>
-                  {message.time.toLocaleTimeString()}
-                </MessageTime>
-              </MessageBubble>
-            </MessageContainer>
-          ))}
-        </MessageList>
-        <MessageForm onSubmit={handleFormSubmit}>
-          <MessageInput
-            type="text"
-            placeholder="Type your message"
-            value={newMessage}
-            onChange={handleInputChange}
-          />
-          <MessageButton type="submit">Send</MessageButton>
-        </MessageForm>
+        {destinatario ? (
+          <>
+            <Header>
+              <Title>Conversa com {destinatario.nome}</Title>
+            </Header>
+            {conversa !== "" && <Conversa 
+              remetente = {user} 
+              destinatario = {destinatario} 
+              id = {conversa}
+              handleFormSubmit = {handleFormSubmit}
+              handleInputChange = {handleInputChange}
+              mensagem = {newMessage}
+              setIsLoading = {() => setIsLoading(false)}
+              />}
+          </>
+          ) : (
+            <NoChat>
+              <h1>Você deve selecionar uma conversa.</h1>
+            </NoChat>
+          )}
       </RightContainer>
     </Container>
   );
