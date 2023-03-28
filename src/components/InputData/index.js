@@ -1,4 +1,4 @@
-import { Icon, Input, InputContainer } from "./styles";
+import { Icon, Input, InputContainer, SelectInput } from "./styles";
 
 import { FaUserAlt, FaLock, FaEnvelope, FaCalendar, FaCity, FaSearchLocation, FaCheckCircle } from "react-icons/fa";
 import { BsGenderAmbiguous } from "react-icons/bs";
@@ -33,6 +33,15 @@ const InputData = ({type, value, onChangeText, password = false, mask = ""}) => 
   const getInputType = () => {
     if (password){
       return <Input placeholder={type} value={value} onChange={onChangeText} type="password"/>
+    }
+    if (type === "Sexo") {
+      return (
+        <SelectInput value={value} name="sexo" onChange={onChangeText}>
+          <option value="Masculino">Masculino</option>
+          <option value="Feminino">Feminino</option>
+          <option value="Outros">Outros</option>
+        </SelectInput>
+      )
     }
     return <Input mask={mask} placeholder={type} value={value} onChange={onChangeText}/>
   }

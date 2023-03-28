@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import ReactInputMask from "react-input-mask";
 
 export const InputContainer = styled.div`
   display: flex;
@@ -10,7 +11,7 @@ export const InputContainer = styled.div`
 
 `;
 
-export const Input = styled.input`
+export const Input = styled(ReactInputMask)`
   border: none;
   width: 100%;
   margin-left: 20px;
@@ -19,6 +20,27 @@ export const Input = styled.input`
   color: #fff;
   ::placeholder {
     color: #fff;
+  }
+`;
+
+export const SelectInput = styled.select`
+  border: none;
+  width: 100%;
+  margin-left: 20px;
+  padding: 10px;
+  background-color: transparent;
+  color: #fff;
+  ::placeholder {
+    color: #fff;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+  option {
+    background-color: black;
+  }
+  option:hover {
+    cursor: pointer;
   }
 `;
 

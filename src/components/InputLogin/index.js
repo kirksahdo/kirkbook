@@ -1,8 +1,9 @@
-import { Icon, Input, InputContainer } from "./styles";
+import { Icon, Input, InputContainer, SelectInput } from "./styles";
 
 import { FaUserAlt, FaLock, FaEnvelope, FaCalendar, FaCity, FaSearchLocation, FaCheckCircle } from "react-icons/fa";
+import { BsGenderAmbiguous } from "react-icons/bs";
 
-const InputLogin = ({type, value, onChangeText, password = false}) => {
+const InputLogin = ({type, value, onChangeText, password = false, mask}) => {
 
   const size = 20;
 
@@ -16,6 +17,8 @@ const InputLogin = ({type, value, onChangeText, password = false}) => {
         return <FaLock color="#fff" size={size}/>;
       case "Data de nascimento":
         return <FaCalendar color="#fff" size={size}/>;
+      case "Sexo":
+        return <BsGenderAmbiguous color="#fff" size={size}/>;
       case "Cidade":
         return <FaCity color="#fff" size={size}/>;
       case "Estado":
@@ -31,7 +34,16 @@ const InputLogin = ({type, value, onChangeText, password = false}) => {
     if (password){
       return <Input placeholder={type} value={value} onChange={onChangeText} type="password"/>
     }
-    return <Input placeholder={type} value={value} onChange={onChangeText}/>
+    if (type === "Sexo") {
+      return (
+        <SelectInput value={value} name="sexo" onChange={onChangeText}>
+          <option value="Masculino">Masculino</option>
+          <option value="Feminino">Feminino</option>
+          <option value="Outros">Outros</option>
+        </SelectInput>
+      )
+    }
+    return <Input mask={mask} placeholder={type} value={value} onChange={onChangeText}/>
   }
 
   return (

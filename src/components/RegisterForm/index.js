@@ -63,7 +63,7 @@ const RegisterForm = ({onBack, onClickForgetPassword}) => {
     setEstado("");
     setSenha("");
     setCSenha("");
-    setSexo("");
+    setSexo("Masculino");
   }
 
   return (
@@ -73,7 +73,7 @@ const RegisterForm = ({onBack, onClickForgetPassword}) => {
       <TitleForm> Cadastro </TitleForm>
       <InputLogin type="Nome" value={nome} onChangeText={({target}) => setNome(target.value)}/>
       <InputLogin type="E-mail" value={email} onChangeText={({target}) => setEmail(target.value)}/>
-      <InputLogin type="Data de nascimento" value={dataNasc} onChangeText={({target}) => setDataNasc(target.value)}/>
+      <InputLogin type="Data de nascimento" mask="99/99/9999" value={dataNasc} onChangeText={({target}) => setDataNasc(target.value)}/>
       <InputLogin type="Sexo" value={sexo} onChangeText={({target}) => setSexo(target.value)}/>
       <InputLogin type="Cidade" value={cidade}onChangeText={({target}) => setCidade(target.value)}/>
       <InputLogin type="Estado" value={estado}onChangeText={({target}) => setEstado(target.value)}/>

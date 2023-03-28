@@ -23,6 +23,41 @@ export const Input = styled(InputMask)`
   }
 `;
 
+export const SelectInput = styled.select`
+  border: none;
+  width: 100%;
+  margin-left: 20px;
+  padding: 10px;
+  background-color: transparent;
+  color: #fff;
+  appearance: none;
+  ::placeholder {
+    color: #fff;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+  option {
+    background-color: black;
+  }
+  option:hover {
+    cursor: pointer;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    border-top: 5px solid #000;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+  }
+`;
+
 export const Icon = styled.div`
   padding: 15px;
   display: flex;
