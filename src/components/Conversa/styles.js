@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export const MessageList = styled.div`
-  flex: 1;
+  width: 100%;
+  max-width: 100%;
   overflow-y: auto;
   padding: 20px;
 
@@ -55,12 +56,18 @@ export const MessageForm = styled.form`
 export const MessageSenderContainer = styled.div`
   display: flex;
   margin-bottom: 10px;
-  justify-content: end;
+  max-width: 1000px;
+  flex-wrap: wrap;
+  word-wrap: break-word;
+  
 `;
 
 export const MessageContainer = styled.div`
   display: flex;
   margin-bottom: 10px;
+  max-width: 1000px;
+  flex-wrap: wrap;
+  word-wrap: break-word;
 `;
 
 export const MessageAvatar = styled.img`
