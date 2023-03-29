@@ -68,11 +68,19 @@ const ProfilePage = () => {
 
   const getAddButton = () => {
     const currentUserId = auth.currentUser.uid;
+    console.log(perfil);
     if (perfil.usuario.id === currentUserId) {
       return (
         <Button onClick={() => setEditarPerfilPopup(true)}>
           <AiFillEdit color="#fff" size={25} />
           <ButtonText>Editar Perfil</ButtonText>
+        </Button>
+      );
+    }
+    if (perfil.usuario.solicitacoes.includes(currentUserId)) {
+      return (
+        <Button>
+          <ButtonText>Solicitação enviada</ButtonText>
         </Button>
       );
     }
@@ -166,7 +174,7 @@ const ProfilePage = () => {
                 </UserBio>
               </UserBioFriends>
               <UserPubs>
-                {perfil.publicacoes.map((publi, i) => (
+                {perfil.publicacoes.sort((a, b) => b.timestamp - a.timestamp).map((publi, i) => (
                   publi.compartilhamento ? (<Compartilhamento publicacao={publi} key={i} />) : <Post publicacao={publi} key={i} />
                 ))}
               </UserPubs>

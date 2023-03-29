@@ -8,12 +8,15 @@ import {
 } from 'react-icons/fa';
 import { IoMdNotifications } from 'react-icons/io';
 import { AiFillMessage } from 'react-icons/ai';
-import { BsFillPersonFill } from 'react-icons/bs';
+import { BsFillPersonFill, BsFillSunFill } from 'react-icons/bs';
 import { useState } from 'react';
 import { auth } from '../../config/firebase';
+import { useTheme } from 'styled-components';
+import { MdNightlightRound } from 'react-icons/md';
 
 const Navbar = () => {
   const [scrollUp, setScrollUp] = useState(true);
+  const {backgroundColor, toggleTheme} = useTheme();
 
   const handleScroll = () => {
     const currentScrollPos = window.pageYOffset;
@@ -58,6 +61,11 @@ const Navbar = () => {
           <li>
             <Link title="Perfil" to={`/user/${auth.currentUser.uid}`}>
               <BsFillPersonFill size={25} color="#fff" />
+            </Link>
+          </li>
+          <li>
+            <Link title="Mudar tema" onClick={toggleTheme}>
+              {backgroundColor === '#333333' ? <MdNightlightRound size={25} color="#fff"/> : <BsFillSunFill size={25} color="#fff"/>}
             </Link>
           </li>
           <li>

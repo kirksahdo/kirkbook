@@ -5,7 +5,6 @@ import { BrowserRouter } from 'react-router-dom';
 import AppRoutes from './routes';
 import { ToastProvider } from './contexts/ToastContext';
 import { GlobalStyle } from './styles';
-import { off } from 'firebase/database';
 
 const App = () => {
   const [theme, setTheme] = useState(darkTheme);

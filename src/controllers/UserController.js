@@ -18,7 +18,6 @@ export const fazerLogin = (email, senha) => {
     signInWithEmailAndPassword(auth, email, senha)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
         resolve(user);
       })
       .catch((error) => {
@@ -54,6 +53,7 @@ export const getUsuario = (id) => {
         if (snapshot.exists()) {
           const usuario = snapshot.val();
           usuario.amigos = usuario.amigos ? Object.values(usuario.amigos) : [];
+          usuario.solicitacoes = usuario.solicitacoes ? Object.keys(usuario.solicitacoes) : [];
           resolve(usuario);
         } else {
           reject('Usuário não encontrado!');
