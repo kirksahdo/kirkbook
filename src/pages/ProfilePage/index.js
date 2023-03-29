@@ -59,7 +59,7 @@ const ProfilePage = () => {
   const enviarSolicitacao = (destinatario) => {
     eSolicitacao(auth.currentUser.uid, destinatario)
       .then((response) => {
-        console.log(response);
+        carregarPerfil();
       })
       .catch((error) => {
         console.error(error);
@@ -68,7 +68,6 @@ const ProfilePage = () => {
 
   const getAddButton = () => {
     const currentUserId = auth.currentUser.uid;
-    console.log(perfil);
     if (perfil.usuario.id === currentUserId) {
       return (
         <Button onClick={() => setEditarPerfilPopup(true)}>
