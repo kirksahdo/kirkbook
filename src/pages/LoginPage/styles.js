@@ -19,6 +19,8 @@ export const Container = styled.div`
   background-color: ${(props) => props.theme.backgroundColor};
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Banner = styled.div`
@@ -33,11 +35,12 @@ export const EmailInput = styled.input`
 `;
 
 export const FormContainer = styled.div`
-  width: 700px;
-  height: 100%;
+  width: 900px;
+  height: 900px;
   background-color: ${(props) => props.theme.primaryColor};
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-radius: 20px;
 `;

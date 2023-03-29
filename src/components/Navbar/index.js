@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Container, LogoContainer, MenuContainer } from './styles';
 import {
-  FaFontAwesomeLogoFull,
   FaHome,
   FaSearch,
   FaSignOutAlt,
@@ -13,6 +12,7 @@ import { useState } from 'react';
 import { auth } from '../../config/firebase';
 import { useTheme } from 'styled-components';
 import { MdNightlightRound } from 'react-icons/md';
+import logo from '../../assets/logo.png';
 
 const Navbar = () => {
   const [scrollUp, setScrollUp] = useState(true);
@@ -33,8 +33,8 @@ const Navbar = () => {
     <Container
       className={scrollUp ? 'navbar-scroll-up show' : 'navbar-scroll-up'}
     >
-      <LogoContainer>
-        <FaFontAwesomeLogoFull color="white" size={100} />
+      <LogoContainer to='/'>
+        <img alt='kirkbook' src={logo} width={100} />
       </LogoContainer>
       <MenuContainer>
         <ul>

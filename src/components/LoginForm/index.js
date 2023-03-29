@@ -42,7 +42,6 @@ const LoginForm = ({ onClickRegister, onClickForgetPassword }) => {
         onChangeText={({ target }) => setSenha(target.value)}
         password
       />
-      <ALink>Esqueceu sua senha?</ALink>
       <ALink onClick={onClickRegister}>Cadastre-se aqui!</ALink>
       <EnterButton onClick={() => fazerLogin(login, senha)}>Entrar</EnterButton>
     </Container>
