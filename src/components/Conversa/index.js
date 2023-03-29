@@ -15,6 +15,7 @@ import {
   MessageForm,
   MessageInput,
   MessageList,
+  MessageName,
   MessageSenderContainer,
   MessageText,
   MessageTime,

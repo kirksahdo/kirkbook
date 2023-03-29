@@ -17,7 +17,7 @@ export const Overlay = styled.div`
 export const Content = styled.div`
   background-color: ${(props) => props.theme.secondaryBackgroundColor};
   border-radius: 8px;
-  padding: 30px;
+  padding: 70px;
   max-width: 600px;
   width: 100%;
   z-index: 1000;

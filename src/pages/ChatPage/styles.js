@@ -27,6 +27,11 @@ export const LeftContainer = styled.div`
   &::-webkit-scrollbar-thumb {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   }
+
+  ul li {
+    color: ${props => props.theme.textColor};
+    text-align: center;
+  }
 `;
 
 export const RightContainer = styled.div`

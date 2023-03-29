@@ -87,7 +87,7 @@ const ProfilePage = () => {
       return (
         <Button onClick={() => {}}>
           <ButtonRemove size={25} />
-          <ButtonText>Desfazer amizade</ButtonText>
+          <ButtonText>Amigo</ButtonText>
         </Button>
       );
     }

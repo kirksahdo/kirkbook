@@ -2,9 +2,10 @@ import styled from 'styled-components';
 
 export const MessageList = styled.div`
   width: 100%;
-  max-width: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 20px;
+  height: 100%;
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -55,18 +56,17 @@ export const MessageForm = styled.form`
 
 export const MessageSenderContainer = styled.div`
   display: flex;
+  width: 100%;
   margin-bottom: 10px;
-  max-width: 1000px;
-  flex-wrap: wrap;
   word-wrap: break-word;
-  
+  display: flex;
+  justify-content: end;
 `;
 
 export const MessageContainer = styled.div`
   display: flex;
   margin-bottom: 10px;
   max-width: 1000px;
-  flex-wrap: wrap;
   word-wrap: break-word;
 `;
 
@@ -84,6 +84,7 @@ export const MessageBubble = styled.div`
   border-radius: 20px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   max-width: 50%;
+  word-wrap: break-word;
 `;
 
 export const MessageText = styled.p`

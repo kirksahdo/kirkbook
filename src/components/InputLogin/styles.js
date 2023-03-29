@@ -29,6 +29,7 @@ export const SelectInput = styled.select`
   padding: 10px;
   background-color: transparent;
   color: #fff;
+  appearance: none;
   ::placeholder {
     color: #fff;
   }
@@ -40,6 +41,19 @@ export const SelectInput = styled.select`
   }
   option:hover {
     cursor: pointer;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    border-top: 5px solid #000;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    width: 0;
+    height: 0;
+    pointer-events: none;
   }
 `;
 

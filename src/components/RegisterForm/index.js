@@ -5,6 +5,7 @@ import Usuario from '../../models/Usuario';
 import { realizarCadastro as rCadastro } from '../../controllers/UserController';
 import { useToast } from '../../contexts/ToastContext';
 import LoadingScreen from '../LoadingScreen';
+import { useEffect } from 'react';
 
 const RegisterForm = ({ onBack, onClickForgetPassword }) => {
   const [nome, setNome] = useState('');
@@ -18,6 +19,10 @@ const RegisterForm = ({ onBack, onClickForgetPassword }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { addToast } = useToast();
+
+  useEffect(() => {
+    limparCampos();
+  }, [])
 
   const realizarCadastro = async () => {
     if (!validarFormulario()) {
