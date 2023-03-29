@@ -25,6 +25,7 @@ const FeedPage = () => {
       addToast('Erro ao criar publicação', '#FF0000', '#fff');
     } finally {
       setCriarPublic(false);
+      setPublicacoes(null);
       visualizarFeed();
     }
   };
