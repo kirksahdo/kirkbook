@@ -80,13 +80,11 @@ const ChatPage = () => {
 
   const enviarMensagem = async () => {
     try {
-      setIsLoading(true);
+      if(newMessage.trim() === "") return;
       await addMensagem(conversa, newMessage, auth.currentUser.uid);
       setNewMessage('');
     } catch (error) {
       console.error(error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
