@@ -226,3 +226,25 @@ export const excluirPublicacao = (publicacao) => {
     }
   });
 };
+
+export const compartilharPublicacao = (conteudo, publicacaoCompartilhada) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const userId = auth.currentUser.uid;
+      const publiRef = push(ref(database, 'publicacoes/'));
+      const publiId = publiRef.key;
+      await set(ref(database, `publicacoes/${publiId}/`), {
+        id: publiId,
+        userId: userId,
+        timestamp: serverTimestamp(),
+        conteudo: conteudo,
+        compartilhamento: publicacaoCompartilhada,
+        curtidas: {},
+        comentarios: {},
+      })
+      resolve('');
+    } catch (error) {
+      reject(error);
+    }
+  });
+};

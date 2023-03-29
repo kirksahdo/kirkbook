@@ -8,6 +8,7 @@ import {
 } from '../../controllers/PublicacaoController';
 import { useToast } from '../../contexts/ToastContext';
 import LoadingScreen from '../../components/LoadingScreen';
+import Compartilhamento from '../../components/Compartilhamento';
 
 const FeedPage = () => {
   const [criarPubli, setCriarPublic] = useState(false);
@@ -58,8 +59,11 @@ const FeedPage = () => {
           Criar nova publicação
         </Button>
         {publicacoes &&
-          publicacoes.map((publi) => (
-            <Post publicacao={publi} key={publi.id} />
+          publicacoes.map((publi, i) => (
+            publi.compartilhamento ? (<Compartilhamento publicacao={publi} key={i} />) : <Post onClosePopup={() => {
+              setPublicacoes(null);
+              visualizarFeed();
+            }} publicacao={publi} key={i} />
           ))}
       </Posts>
     </Container>

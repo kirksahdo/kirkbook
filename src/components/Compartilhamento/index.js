@@ -26,6 +26,7 @@ import {
   PostProfilePhoto,
   EditIcon,
   DeleteIcon,
+  ContentShare,
 } from './styles';
 import defaultProfile from '../../assets/user.jpeg';
 import { useEffect, useState } from 'react';
@@ -37,27 +38,42 @@ import {
   removerCurtida,
   editarPublicacao as ePublicacao,
   excluirPublicacao,
-  compartilharPublicacao as cPublicacao
+  getPublicacao,
 } from '../../controllers/PublicacaoController';
 import { auth } from '../../config/firebase';
 import { useToast } from '../../contexts/ToastContext';
 import LoadingScreen from '../LoadingScreen';
 import EditPostPopup from '../EditPostPopup';
 import Popup from '../Popup';
-import CompartilhamentoPopup from '../CompartilhamentoPopup';
 
-const Post = ({ publicacao, onClosePopup }) => {
+const Compartilhamento = ({ publicacao }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showInput, setShowInput] = useState(false);
   const [usuario, setUsuario] = useState(null);
+  const [usuarioCompartilhado, setUsuarioCompartilhado] = useState(null);
   const [userLogged, setUserLogged] = useState(null);
   const [publi, setPubli] = useState(publicacao);
   const [comentario, setComentario] = useState('');
   const { addToast } = useToast();
   const [editPopup, setEditPopup] = useState(false);
-  const [compartilharPopup, setCompartilharPopup] = useState(false);
   const [deletePopup, setDeletePopup] = useState(false);
+  const [compartilhamento, setCompartilhamento] = useState(null);
+
+  const getPublicacaoCompartilhada = async () => {
+    try {
+      const publicacaoCompartilhada = await getPublicacao(publicacao.compartilhamento);
+      const usuarioPublicacao = await getUsuario(publicacaoCompartilhada.userId);
+      setCompartilhamento(publicacaoCompartilhada);
+      setUsuarioCompartilhado(usuarioPublicacao);
+      
+    } catch (error) {
+      console.error(error);
+      setPubli({...publi, compartilhamento: null});
+    } finally {
+      setIsLoaded(true);
+    }
+  }
 
   useEffect(() => {
     const userId = publi.userId;
@@ -66,8 +82,8 @@ const Post = ({ publicacao, onClosePopup }) => {
         getUsuario(auth.currentUser.uid)
           .then((userLogged) => {
             setUsuario(user);
-            setIsLoaded(true);
             setUserLogged(userLogged);
+            getPublicacaoCompartilhada();
           })
           .catch((error) => {
             console.error(error);
@@ -81,6 +97,7 @@ const Post = ({ publicacao, onClosePopup }) => {
   if (!isLoaded) {
     return;
   }
+
 
   const curtirPublicacao = () => {
     const userLoggedId = auth.currentUser.uid;
@@ -153,20 +170,6 @@ const Post = ({ publicacao, onClosePopup }) => {
       });
   };
 
-  const compartilharPublicacao = ({text}) => {
-    setIsLoading(true);
-    cPublicacao(text, publicacao.id)
-      .then(_ => {
-        addToast('Publicação compartilhada com sucesso!', '#008000', '#fff');
-      })
-      .catch((error) => addToast(error.message, '#FF0000', '#fff'))
-      .finally((_) => {
-        setIsLoading(false);
-        setCompartilharPopup(false);
-        onClosePopup();
-      });
-  }
-
   if (!publi) {
     return;
   }
@@ -186,21 +189,12 @@ const Post = ({ publicacao, onClosePopup }) => {
         onCancel={() => setDeletePopup(false)}
         onConfirm={deletarPublicacao}
       />
-      <CompartilhamentoPopup
-        isOpen={compartilharPopup}
-        onCancel={() => setCompartilharPopup(false)}
-        onClose={() => {
-          setCompartilharPopup(false);
-          onClosePopup();
-        }}
-        onSubmit={compartilharPublicacao}
-      />
       <Header>
         <UserProfilePhoto>
           <PostProfilePhoto src={usuario.urlFotoPerfil ?? defaultProfile} />
         </UserProfilePhoto>
         <UserData>
-          <MainText href={`user/${usuario.id}`}>{usuario.administrador && (<span>[Admin] </span>)}{usuario.nome}</MainText>
+          <MainText href={`user/${usuario.id}`}>{usuario.administrador && (<span>[Admin] </span>)}{usuario.nome} compartilhou a seguinte publicação</MainText>
           <SubText href="#">
             {' '}
             {moment(publi.timestamp).format('DD/MM/YYYY [às] HH:mm')}
@@ -215,10 +209,25 @@ const Post = ({ publicacao, onClosePopup }) => {
       </Header>
       <Content>
         <PostText>{publi.conteudo}</PostText>
-        {publi.midiaUrl && <PostImage src={publi.midiaUrl} />}
-        <LikesLabel>{`${publi.curtidas.length} curtida${
-          publi.curtidas.length > 1 ? 's' : ''
-        }`}</LikesLabel>
+        <Header>
+          <UserProfilePhoto>
+            <PostProfilePhoto src={usuarioCompartilhado.urlFotoPerfil ?? defaultProfile} />
+          </UserProfilePhoto>
+          <UserData>
+            <MainText href={`user/${usuarioCompartilhado.id}`}>{usuarioCompartilhado.administrador && (<span>[Admin] </span>)}{usuarioCompartilhado.nome}</MainText>
+            <SubText href="#">
+              {' '}
+              {moment(compartilhamento.timestamp).format('DD/MM/YYYY [às] HH:mm')}
+            </SubText>
+          </UserData>
+        </Header>
+        <ContentShare>
+          <PostText>{compartilhamento.conteudo}</PostText>
+          {compartilhamento.midiaUrl && <PostImage src={compartilhamento.midiaUrl} />}
+          <LikesLabel>{`${publi.curtidas.length} curtida${
+            publi.curtidas.length > 1 ? 's' : ''
+          }`}</LikesLabel>
+        </ContentShare>
       </Content>
       <Footer>
         <Buttons>
@@ -233,10 +242,6 @@ const Post = ({ publicacao, onClosePopup }) => {
           <Button onClick={() => setShowInput(!showInput)}>
             <ComentIcon />
             <ButtonText>Comentar</ButtonText>
-          </Button>
-          <Button onClick={() => setCompartilharPopup(true)}>
-            <ShareIcon />
-            <ButtonText>Compartilhar</ButtonText>
           </Button>
         </Buttons>
         <PostComments>
@@ -267,4 +272,4 @@ const Post = ({ publicacao, onClosePopup }) => {
   );
 };
 
-export default Post;
+export default Compartilhamento;

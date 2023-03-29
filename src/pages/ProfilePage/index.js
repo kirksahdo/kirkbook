@@ -31,6 +31,7 @@ import { auth } from '../../config/firebase';
 import { enviarSolicitacao as eSolicitacao } from '../../controllers/SolicitacaoController';
 import { AiFillEdit } from 'react-icons/ai';
 import EditarPerfil from '../../components/EditarPerfil';
+import Compartilhamento from '../../components/Compartilhamento';
 
 const ProfilePage = () => {
   const { id } = useParams();
@@ -165,8 +166,8 @@ const ProfilePage = () => {
                 </UserBio>
               </UserBioFriends>
               <UserPubs>
-                {perfil.publicacoes.map((publi) => (
-                  <Post publicacao={publi} key={publi.id} />
+                {perfil.publicacoes.map((publi, i) => (
+                  publi.compartilhamento ? (<Compartilhamento publicacao={publi} key={i} />) : <Post publicacao={publi} key={i} />
                 ))}
               </UserPubs>
             </UserPubInfo>
